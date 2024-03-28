@@ -1,15 +1,16 @@
 const express = require('express');
-const app = express();
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
-const PORT = 3000;
+
+const app = express();
+const PORT = process.env.PORT || 3000;
 let status = "disconnected";
 
 dotenv.config();
 
-const Connect = async () => {
+const connect = async () => {
     try {
-        await mongoose.connect(process.env.URI);
+        await mongoose.connect(process.env.URI, { useNewUrlParser: true, useUnifiedTopology: true });
         status = "connected";
         console.log("Connection established");
     }
@@ -19,7 +20,7 @@ const Connect = async () => {
     }
 };
 
-const Disconnect = async () => {
+const disconnect = async () => {
     try {
         await mongoose.disconnect();
         status = "disconnected";
@@ -33,16 +34,38 @@ const Disconnect = async () => {
 
 app.get('/', (req, res) => {
     res.send(status);
-  });
+});
 
-app.listen(PORT, async () => {
+app.use(express.json());
+
+app.use((err, req, res, next) => {
+    console.error(err.stack);
+    res.status(500).send('Something broke!');
+});
+
+const server = app.listen(PORT, async () => {
     try {
-        await Connect();
+        await connect();
         console.log(`Server is running on Port ${PORT}`);
     }
     catch (err) {
         console.error("Server startup failed:", err);
         process.exit(1); 
+    }
+});
+
+
+process.on('SIGINT', async () => {
+    try {
+        await disconnect();
+        console.log('MongoDB connection closed');
+        server.close(() => {
+            console.log('Server stopped');
+            process.exit(0);
+        });
+    } catch (err) {
+        console.error('Error during shutdown:', err);
+        process.exit(1);
     }
 });
 
