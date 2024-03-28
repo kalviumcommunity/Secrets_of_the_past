@@ -9,7 +9,7 @@ dotenv.config();
 
 const Connect = async () => {
     try {
-        await mongoose.connect(process.env.URI, { useNewUrlParser: true, useUnifiedTopology: true }); // Specify options to avoid deprecation warnings
+        await mongoose.connect(process.env.URI);
         status = "connected";
         console.log("Connection established");
     }
@@ -33,8 +33,7 @@ const Disconnect = async () => {
 
 app.get('/', (req, res) => {
     res.send(status);
-});
-
+  });
 
 app.listen(PORT, async () => {
     try {
