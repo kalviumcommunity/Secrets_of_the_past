@@ -1,0 +1,15 @@
+@import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@300..700&family=Poppins:wght@500&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body{
+    font-family: "Poppins", sans-serif;
+    color: aliceblue;
+    background-image: url('https://media.istockphoto.com/id/478389238/photo/abstract-dark-brown-background.webp?b=1&s=170667a&w=0&k=20&c=a4wQhYxOFfh9MrlJOl_8Y3OLwg90OdtR0C4YeNcq5GY=');
+    background-repeat: no-repeat;
+    background-size: cover;
+    
+}
+
