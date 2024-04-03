@@ -20,15 +20,17 @@ function Navbar() {
 
   const navItems = (
     <>
-      <li><a>Home</a></li>
-      <li><a>Mystery</a></li>
+      <li><a href="/">Home</a></li>
+      <li><a href="/real">Real</a></li>
+      <li><a>Fiction</a></li>
       <li><a>Facts</a></li>
       <li><a>About</a></li>
     </>
   );
 
   return (
-    <div className={`max-w-screen-2xl container mx-auto md:px-20 px-4 fixed top-0 left-0 right-0 ${sticky ? 'sticky-navbar shadow-md bg-black text-white' : ''}`}>
+    <>
+    <div className={`max-w-screen-2xl container mx-auto md:px-20 px-4 fixed top-0 left-0 right-0 z-50 ${sticky ? 'sticky-navbar shadow-md bg-black text-white' : ''}`}>
       <div className="navbar bg-base-0">
         <div className="navbar-start">
           <div className="dropdown">
@@ -41,7 +43,7 @@ function Navbar() {
               {navItems}
             </ul>
           </div>
-          <a className="text-2xl font-bold cursor-pointer">bookStore</a>
+          <a className="text-2xl font-bold cursor-pointer">TheSecrets</a>
         </div>
         <div className='navbar-end space-x-3'>
           <div className="navbar-center hidden lg:flex">
@@ -66,6 +68,7 @@ function Navbar() {
         </div>
       </div>
     </div>
+    </>
   );
 }
 
