@@ -1,53 +1,42 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
-const routes = require('./routes');
-const cors = require('cors');
+const routes = require('./routes'); 
+const cors = require('cors'); 
+const app = express();
+const PORT = 3000;
+let status = "disconnected";
+
+app.use(cors()); 
 
 dotenv.config();
 
-const app = express();
-const PORT = process.env.PORT || 3000; 
-let status = "disconnected";
-
-const Connect = async () => {
-    try {
-        await mongoose.connect(process.env.URI);
-        status = "connected";
-        console.log("Connection established");
-    } catch (err) {
-        console.error("Connection Failed:", err);
-        status = "error";
-    }
+const startConnect = async () => {
+  try {
+    await mongoose.connect(process.env.MONGO);
+    status = "connected"; 
+    console.log("Connected to MongoDB");
+  } catch (err) {
+    console.error("Failed to connect to MongoDB:");
+    status = "error";
+  }
 };
 
-const Disconnect = async () => {
-    try {
-        await mongoose.disconnect();
-        status = "disconnected";
-        console.log("Disconnected from MongoDB");
-    } catch (err) {
-        console.error("Disconnection Failed:", err);
-        status = "error";
-    }
+const stopConnect = async () => {
+  await mongoose.disconnect();
+  status = "disconnected"; 
+  console.log("Disconnected from MongoDB");
 };
-
-app.use(cors()); 
 
 app.use('/', routes);
 
 app.get('/', (req, res) => {
-    res.send(status);
+  res.send(status);
 });
 
 app.listen(PORT, async () => {
-    try {
-        await Connect();
-        console.log(`Server is running on Port ${PORT}`);
-    } catch (err) {
-        console.error("Server startup failed:", err);
-        process.exit(1);
-    }
+  await startConnect(); 
+  console.log(`Server is running on port ${PORT}`);
 });
 
 module.exports = app;
