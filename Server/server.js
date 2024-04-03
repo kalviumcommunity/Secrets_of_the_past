@@ -13,7 +13,7 @@ dotenv.config();
 
 const startConnect = async () => {
   try {
-    await mongoose.connect(process.env.MONGO);
+    await mongoose.connect(process.env.URI);
     status = "connected"; 
     console.log("Connected to MongoDB");
   } catch (err) {
