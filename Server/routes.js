@@ -1,13 +1,25 @@
 const express = require('express');
 const router = express.Router();
-const Entity = require('./schema'); 
+const { BooksEntity, FictionEntity } = require('./schema'); // Assuming schema.js contains BooksEntity and fictionSchema.js contains FictionEntity
 
 router.use(express.json());
 
+// Real-get
 router.get('/get', async (req, res) => {
     try {
-        const secrets = await Entity.find().maxTimeMS(20000).exec();
-        res.json(secrets);
+        const books = await BooksEntity.find().maxTimeMS(20000).exec();
+        res.json(books);
+    } catch (err) {
+        console.error('Error in GET request:', err);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+});
+
+// Fiction-get
+router.get('/fiction', async (req, res) => {
+    try {
+        const fictionBooks = await FictionEntity.find().maxTimeMS(20000).exec();
+        res.json(fictionBooks);
     } catch (err) {
         console.error('Error in GET request:', err);
         res.status(500).json({ error: 'Internal Server Error' });

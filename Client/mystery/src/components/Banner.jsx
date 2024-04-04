@@ -1,14 +1,30 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import banner from "../../public/Banner.jpeg";
+import Typed from 'typed.js';
 
 function Banner() {
+  const typedRef = useRef(null);
+
+  useEffect(() => {
+    const options = {
+      strings: ["Hello Detectives,<br />welcome to the dark world of mysteries just read and dive into <span class='text-yellow-400'>THE SECRETS</span>"],
+      typeSpeed: 60,
+      loop: true
+    };
+
+    const typed = new Typed(typedRef.current, options);
+
+    return () => {
+      typed.destroy();
+    };
+  }, []);
+
   return (
     <div className='bg-image'>
       <div className='max-w-screen-3x-1 container mx-auto md:px-20 py-12 flex flex-col md:flex-row my-10'>
         <div className='w-full order-2 md:order-1 md:w-1/2 mt-12 md:mt-30'>
           <div className='space-y-10'>
-            <h1 className='text-2xl font-bold'>Hello Detectives,<br />
-              welcome to the dark world of mysteries just read and dive into the<span className='text-yellow-400'> SECRETS OF THE PAST</span></h1>
+            <h1 ref={typedRef} className='text-2xl font-bold'></h1>
             <p className='text-xl'>Sometimes truth lies. It's forced to do so as it's incomplete. That incorrect truth forces itself to lie and that lie now presents itself as the truth.</p>
             <label className="input input-bordered flex items-center gap-2">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" className="w-4 h-4 opacity-70">
