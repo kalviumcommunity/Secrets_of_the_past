@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { BooksEntity, FictionEntity } = require('./schema'); // Assuming schema.js contains BooksEntity and fictionSchema.js contains FictionEntity
+const { BooksEntity, FictionEntity } = require('./schema'); 
 
 router.use(express.json());
 
