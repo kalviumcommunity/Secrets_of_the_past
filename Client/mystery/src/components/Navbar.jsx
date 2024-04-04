@@ -23,8 +23,8 @@ function Navbar() {
       <li><a href="/">Home</a></li>
       <li><a href="/real">Real</a></li>
       <li><a href="/fiction">Fiction</a></li>
-      <li><a>Facts</a></li>
-      <li><a>About</a></li>
+      <li><a href="/facts">Facts</a></li>
+      <li><a href="/videos">Videos</a></li>
     </>
   );
 
