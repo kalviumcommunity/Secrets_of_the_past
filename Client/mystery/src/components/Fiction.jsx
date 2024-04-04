@@ -26,7 +26,8 @@ function Real() {
                 <img src={story.image} alt={story.name} style={{ width: '100px', height: '150px' }} />
                 <div className="ml-4">
                   <h2>{story.name}</h2>
-                  <p className='md:pt-3 p-4'>{story.description}</p>
+                  <p className='md:pt-3 p-4'>{story.Description}</p>
+
                   <a href={story.pdf} target="_blank" rel="noopener noreferrer">Read Book</a>
                 </div>
               </li>
