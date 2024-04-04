@@ -28,12 +28,12 @@ function Banner() {
             <h1 ref={typedRef} className='text-2xl font-bold'></h1>
             <p className='text-xl'>Sometimes truth lies. It's forced to do so as it's incomplete. That incorrect truth forces itself to lie and that lie now presents itself as the truth.</p>
           </div>
-          <img src={gold} className='w-55 h-60 pt-12 md:pl-7 blur' alt="" style={{ width: '100%', overflow: 'hidden', borderRadius: '10px', boxShadow: '0 0 10px rgba(0, 0, 0, 0.2)' }} />
+          <img src={gold} className='w-55 h-60 pt-12 md:pl-7 blur' alt="gold-stroke" style={{ width: '100%', overflow: 'hidden', borderRadius: '10px', boxShadow: '0 0 10px rgba(0, 0, 0, 0.2)' }} />
         </div>
         <div className='order-1 w-full md:w-1/2 md:order-2'>
           <div style={{ overflow: 'hidden', borderRadius: '10px', boxShadow: '0 0 10px rgba(0, 0, 0, 0.2)' }}>
             <div style={{ maskImage: 'radial-gradient(circle at top left, transparent 20%, black 100%)', WebkitMaskImage: 'radial-gradient(circle at top left, transparent 20%, black 100%)' }}>
-              <img src={banner} className='w-92 h-92 pt-19 md:pl-12' alt="" style={{ width: '100%' }} />
+              <img src={banner} className='w-92 h-92 pt-19 md:pl-12' alt="home-book" style={{ width: '100%' }} />
             </div>
           </div>
         </div>

@@ -2,7 +2,7 @@ import React from 'react'
 import Navbar from '../components/Navbar'
 import Real from '../components/Real'
 
-function real() {
+function True() {
   return (
     <>
         <Navbar/>
@@ -13,4 +13,4 @@ function real() {
   );
 }
 
-export default real
+export default True
