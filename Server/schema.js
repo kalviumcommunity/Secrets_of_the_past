@@ -12,4 +12,7 @@ const EntitySchema = new mongoose.Schema({
 
 const Entity = mongoose.model('books-collections', EntitySchema);
 
-module.exports = Entity;
+module.exports = {
+    BooksEntity: Entity,
+    FictionEntity: require('./fictionSchema')
+};
