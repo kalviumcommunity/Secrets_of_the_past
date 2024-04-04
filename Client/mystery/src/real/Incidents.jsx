@@ -2,7 +2,7 @@ import React from 'react'
 import Navbar from '../components/Navbar'
 import Real from '../components/Real'
 
-function True() {
+function Incidents() {
   return (
     <>
         <Navbar/>
@@ -13,4 +13,4 @@ function True() {
   );
 }
 
-export default True
+export default Incidents
