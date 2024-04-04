@@ -9,6 +9,7 @@ function Incidents() {
         <div className='min-h-screen'>
         <Real/>
         </div>
+        {/* Incidents refers to real page */}
     </>
   );
 }
