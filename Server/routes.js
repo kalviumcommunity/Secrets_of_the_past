@@ -4,7 +4,7 @@ const { BooksEntity, FictionEntity } = require('./schema');
 
 router.use(express.json());
 
-// Real-get
+// Real-get route
 router.get('/get', async (req, res) => {
     try {
         const books = await BooksEntity.find().maxTimeMS(20000).exec();
@@ -15,7 +15,7 @@ router.get('/get', async (req, res) => {
     }
 });
 
-// Fiction-get
+// Fiction-get route
 router.get('/fiction', async (req, res) => {
     try {
         const fictionBooks = await FictionEntity.find().maxTimeMS(20000).exec();
