@@ -2,7 +2,7 @@ import React from 'react'
 import Navbar from '../components/Navbar'
 import Facts from '../components/Facts'
 
-function more() {
+function More() {
   return (
     <>
         <Navbar/>
@@ -13,4 +13,4 @@ function more() {
   );
 }
 
-export default more
+export default More
