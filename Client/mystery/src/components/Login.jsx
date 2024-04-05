@@ -37,11 +37,16 @@ function Login() {
               <br />
               <input
                 type="password"
-                placeholder="Enter your password"
-                {...register('password', { required: true })}
+                placeholder="Enter your password (at least 8 characters)"
+                {...register('password', { required: true, minLength: 8 })}
                 className="w-80 px-3 py-1 border rounded-md outline-none"
               />
-              {errors.password && <span className="text-red-500">Password is required</span>}
+              {errors.password && errors.password.type === "required" && (
+                <span className="text-red-500">Password is required</span>
+              )}
+              {errors.password && errors.password.type === "minLength" && (
+                <span className="text-red-500">Password must be at least 8 characters long</span>
+              )}
             </div>
             {/* Button */}
             <div className="flex justify-around mt-4">
