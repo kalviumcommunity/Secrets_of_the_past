@@ -5,6 +5,7 @@ import Incidents from "./real/Incidents";
 import Fictional from './fiction/Fictional'; 
 import More from './facts/More';
 import Video from './videos/Video';
+import Signup from './components/Signup';
 function App() {
   return (
     <> 
@@ -15,6 +16,7 @@ function App() {
         <Route path="/fiction" element={<Fictional/>}/> 
         <Route path="/facts" element={<More/>}/> 
         <Route path="/videos" element={<Video/>}/> 
+        <Route path="/signup" element={<Signup/>}/> 
       </Routes>
     </>
   );
