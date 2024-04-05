@@ -3,15 +3,10 @@ import { Link } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 
 function Login() {
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm();
+  const { register, handleSubmit, formState: { errors } } = useForm();
 
   const onSubmit = (data) => {
-    
-    console.log(data); 
+    console.log(data);
   };
 
   return (
@@ -24,52 +19,38 @@ function Login() {
             </Link>
             <h3 className="font-bold text-lg">Login</h3>
             <p className="py-4">Hello! please Login here</p>
-            {/* Email */}
+            {/* email */}
             <div className="mt-4 space-y-2">
               <span>Email</span>
               <br />
               <input
                 type="email"
                 placeholder="Enter your email"
-                {...register('email', {
-                  required: true,
-                  pattern: {
-                    value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-                    message: "Invalid email address",
-                  },
-                })}
+                {...register('email', { required: true })}
                 className="w-80 px-3 py-1 border rounded-md outline-none"
               />
-              {errors.email && <span className="text-red-500">{errors.email.message}</span>}
+              {errors.email && <span className="text-red-500">Email is required</span>}
             </div>
-            {/* Password */}
+            {/* password */}
             <div className="mt-4 space-y-2">
               <span>Password</span>
               <br />
               <input
                 type="password"
-                placeholder="Enter your password"
-                {...register('password', {
-                  required: true,
-                  minLength: {
-                    value: 8,
-                    message: "Password must be at least 8 characters long",
-                  },
-                  pattern: {
-                    value: /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/,
-                    message: "Password must contain at least one letter, one number, and one special character",
-                  },
-                })}
+                placeholder="Enter your password (at least 8 characters)"
+                {...register('password', { required: true, minLength: 8 })}
                 className="w-80 px-3 py-1 border rounded-md outline-none"
               />
-              {errors.password && <span className="text-red-500">{errors.password.message}</span>}
+              {errors.password && errors.password.type === "required" && (
+                <span className="text-red-500">Password is required</span>
+              )}
+              {errors.password && errors.password.type === "minLength" && (
+                <span className="text-red-500">Password must be at least 8 characters long</span>
+              )}
             </div>
             {/* Button */}
             <div className="flex justify-around mt-4">
-              <button
-                type="submit"
-                className="bg-blue-900 rounded-md px-3 py-1 hover:bg-blue-500 duration-200"
-              >
+              <button type="submit" className="bg-blue-900 rounded-md px-3 py-1 hover:bg-blue-500 duration-200">
                 Login
               </button>
               <p className="text-xl">
