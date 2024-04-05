@@ -67,4 +67,6 @@ function Login() {
   );
 }
 
+// backend part: signup = login, kept simple for now
+
 export default Login;
