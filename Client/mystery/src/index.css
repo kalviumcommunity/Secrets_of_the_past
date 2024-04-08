@@ -12,23 +12,22 @@ body{
     background-size: cover;
        
 }
-/* .slider-container {
-    background-color: rgb(255, 0, 4);
-}
-.slider-list {
-    background-color: rgb(255, 0, 4);
-} */
+
 .color{
-    background-color: rgb(255, 0, 4);
+    border-top-left-radius: 5px;
+    border-top-right-radius: 1px;
+    border-bottom-right-radius: 15px;
+    border-bottom-left-radius: 2px;
+    background-color: rgb(9, 3, 0);
+
 
 }
 .card-body{
-    background-color: rgb(255, 0, 4);
-
+    background-color: rgb(9, 3, 0);
 }
 
 
 .blur {
     filter: blur(1.5px); 
-  }
+}
   
