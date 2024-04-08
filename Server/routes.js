@@ -42,17 +42,22 @@ router.post('/signup', async (req, res) => {
 router.post('/login', async (req, res) => {
     try {
         const { username, password } = req.body;
-        const user = await userInfo.findOne({ username, password });
+        const user = await userInfo.findOne({ username: username, password: password });
 
         if (!user) {
             return res.status(401).json({ error: 'Invalid username / password' });
         }
-        
         res.status(200).json({ user });
+
     } catch (err) {
         console.error('Error in user login:', err);
-        res.status(500).json({ error: 'Error logging in user' });
+        res.status(500).json({ error: 'Internal Server Error' });
     }
+});
+
+router.post('/logout', (req, res) => {
+    res.clearCookie('token');
+    res.status(200).json({ message: 'Logout successful' });
 });
 
 module.exports = router;
