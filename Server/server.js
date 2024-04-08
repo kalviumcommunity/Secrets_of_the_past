@@ -28,7 +28,7 @@ const stopConnect = async () => {
   console.log("Disconnected from MongoDB");
 };
 
-app.use('/', routes);
+app.use('/',routes);
 
 app.get('/', (req, res) => {
   res.send(status);

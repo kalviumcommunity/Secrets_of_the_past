@@ -28,11 +28,14 @@ router.get('/fiction', async (req, res) => {
 router.post('/signup', async (req, res) => {
     try {
         const { username, password } = req.body;
-        const newUser = await userInfo.create({ username, password });
+        const newUser = await userInfo.create({
+            username: username,
+            password: password
+        });
         res.status(201).json(newUser);
     } catch (err) {
         console.error('Error in user signup:', err);
-        res.status(500).json({ error: 'Error signing up user' });
+        res.status(500).json({ error: 'Internal Server Error' });
     }
 });
 
