@@ -15,7 +15,7 @@ function Signup() {
                 setSignupError("Password should be more than 5 characters");
                 return;
             }
-            const response = await axios.post(`https://secrets-of-the-past.onrender.com/signup`, { username, password }); // Assuming your backend is running on localhost:3000
+            const response = await axios.post(`https://secrets-of-the-past-2.onrender.com/signup`, { username, password }); 
             if (response.status === 201) {
                 sessionStorage.setItem('login', true);
                 sessionStorage.setItem('signupSuccess', 'Signup successful');
@@ -25,8 +25,8 @@ function Signup() {
                 setSignupError('Signup failed');
             }
         } catch (err) {
-            console.error(err);
-            setSignupError('An error occurred during the signup');
+            console.error(err.response.data);
+            setSignupError(err.response.data.error || 'An error occurred during the signup');
         }
     }
 
