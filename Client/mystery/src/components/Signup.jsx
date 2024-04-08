@@ -14,7 +14,7 @@ function Signup({ onSignup }) {
                 setSignupError("Password should be more than 5 characters");
                 return;
             }
-            onSignup(username, password);
+            await onSignup(username, password);
         } catch (err) {
             console.error(err);
             setSignupError('An error occurred during the signup');
@@ -54,8 +54,8 @@ function Signup({ onSignup }) {
                 <p className="text-gray-700 text-xs">Already have an account? <Link to='/login' className="text-blue-500 hover:text-blue-700">Login</Link></p>
             </div>
             <div className="w-full md:w-1/2 flex justify-center items-center pt-8 md:pt-20 md:pt-0">
-            <div style={{ maskImage: 'radial-gradient(circle at top left, transparent 10%, black 60%)', WebkitMaskImage: 'radial-gradient(circle at top left, transparent 20%, black 100%)' }}>
-                <img src={loginbooks} className='w-40 h-110 rounded-md overflow-hidden' alt="home-book" style={{ width: '100%', marginTop: '20px' }} />
+                <div style={{ maskImage: 'radial-gradient(circle at top left, transparent 10%, black 60%)', WebkitMaskImage: 'radial-gradient(circle at top left, transparent 20%, black 100%)' }}>
+                    <img src={loginbooks} className='w-40 h-110 rounded-md overflow-hidden' alt="home-book" style={{ width: '100%', marginTop: '20px' }} />
                 </div>
             </div>
         </div>
