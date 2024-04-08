@@ -1,6 +1,6 @@
 import React from 'react';
-import Navbar from '../components/Navbar';
-import Fiction from '../components/Fiction';
+import Navbar from './Navbar';
+import Fiction from './Fiction';
 
 function Fictional() {
   return (

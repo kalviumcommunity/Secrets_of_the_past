@@ -12,6 +12,21 @@ body{
     background-size: cover;
        
 }
+/* .slider-container {
+    background-color: rgb(255, 0, 4);
+}
+.slider-list {
+    background-color: rgb(255, 0, 4);
+} */
+.color{
+    background-color: rgb(255, 0, 4);
+
+}
+.card-body{
+    background-color: rgb(255, 0, 4);
+
+}
+
 
 .blur {
     filter: blur(1.5px); 

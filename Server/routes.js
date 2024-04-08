@@ -1,28 +1,54 @@
 const express = require('express');
 const router = express.Router();
-const { BooksEntity, FictionEntity } = require('./schema'); 
+const { BooksEntity, FictionEntity } = require('./schema');
+const userInfo = require('./userschema'); 
 
 router.use(express.json());
 
-
-router.get('/get', async (req, res) => {
+router.get('/books', async (req, res) => {
     try {
         const books = await BooksEntity.find().maxTimeMS(20000).exec();
         res.json(books);
     } catch (err) {
-        console.error('Error in GET request:', err);
+        console.error('Error in GET books request:', err);
         res.status(500).json({ error: 'Internal Server Error' });
     }
 });
-
 
 router.get('/fiction', async (req, res) => {
     try {
         const fictionBooks = await FictionEntity.find().maxTimeMS(20000).exec();
         res.json(fictionBooks);
     } catch (err) {
-        console.error('Error in GET request:', err);
+        console.error('Error in GET fiction books request:', err);
         res.status(500).json({ error: 'Internal Server Error' });
+    }
+});
+
+router.post('/signup', async (req, res) => {
+    try {
+        const { username, password } = req.body;
+        const newUser = await userInfo.create({ username, password });
+        res.status(201).json(newUser);
+    } catch (err) {
+        console.error('Error in user signup:', err);
+        res.status(500).json({ error: 'Error signing up user' });
+    }
+});
+
+router.post('/login', async (req, res) => {
+    try {
+        const { username, password } = req.body;
+        const user = await userInfo.findOne({ username, password });
+
+        if (!user) {
+            return res.status(401).json({ error: 'Invalid username / password' });
+        }
+        
+        res.status(200).json({ user });
+    } catch (err) {
+        console.error('Error in user login:', err);
+        res.status(500).json({ error: 'Error logging in user' });
     }
 });
 

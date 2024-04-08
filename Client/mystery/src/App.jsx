@@ -1,22 +1,26 @@
 import React from 'react';
-import Home from './home/Home';
-import { Route, Routes } from "react-router-dom"
-import Incidents from "./real/Incidents";
-import Fictional from './fiction/Fictional'; 
-import More from './facts/More';
-import Video from './videos/Video';
+import { Route, Routes } from 'react-router-dom';
+import Home from './components/Home';
+import Incidents from './components/Incidents';
+import Fictional from './components/Fictional';
+import More from './components/More';
+import Video from './components/Video';
+import Login from './components/Login';
 import Signup from './components/Signup';
+import Navbar from './components/Navbar';
+
 function App() {
   return (
-    <> 
-     
+    <>
+      <Navbar />
       <Routes>
-        <Route path="/" element={<Home/>}/>
-        <Route path="/real" element={<Incidents/>}/>
-        <Route path="/fiction" element={<Fictional/>}/> 
-        <Route path="/facts" element={<More/>}/> 
-        <Route path="/videos" element={<Video/>}/> 
-        <Route path="/signup" element={<Signup/>}/> 
+        <Route path="/" element={<Home />} />
+        <Route path="/real" element={<Incidents />} />
+        <Route path="/fiction" element={<Fictional />} />
+        <Route path="/facts" element={<More />} />
+        <Route path="/videos" element={<Video />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<Signup />} />
       </Routes>
     </>
   );
