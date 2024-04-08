@@ -22,9 +22,6 @@ function Login() {
   const handleLogin = async (e) => {
     e.preventDefault();
 
-    console.log("Username:", username);
-    console.log("Password:", password);
-
     try {
       const response = await axios.post('https://secrets-of-the-past-2.onrender.com/login', { username, password });
 
@@ -35,7 +32,9 @@ function Login() {
       }
     } catch (error) {
       console.error('Error occurred while logging in:', error);
-      setLoginError('Error occurred while logging in. Please try again.');
+
+      // Set a generic error message
+      setLoginError('Invalid username or password. Please try again.');
     }
   };
 

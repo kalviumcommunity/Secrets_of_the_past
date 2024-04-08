@@ -31,3 +31,17 @@ body{
     filter: blur(1.5px); 
 }
   
+.signup-image {
+    mask-image: radial-gradient(circle at top left, transparent 20%, black 60%);
+    -webkit-mask-image: radial-gradient(circle at top left, transparent 20%, black 100%);
+    width: 100%;
+    padding-left: 5rem; 
+    margin-left: 10rem;
+}
+
+.form-container {
+    margin-left: 10rem; 
+    margin-top: 10rem;
+}
+
+

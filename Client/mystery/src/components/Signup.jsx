@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { Link, Navigate } from 'react-router-dom';
-import signupbooks from "../../public/signupbooks.png";
 import axios from 'axios';
 
 function Signup() {
@@ -11,9 +10,6 @@ function Signup() {
 
     const handleSubmit = async (event) => {
         event.preventDefault();
-
-        console.log("Username:", username);
-        console.log("Password:", password);
 
         try {
             if (password.length < 6) {
@@ -40,7 +36,7 @@ function Signup() {
 
     return (
         <div className="flex justify-center items-center h-screen">
-            <div className="max-w-md p-8 border border-gray-300 rounded mr-10">
+            <div className="max-w-md p-8 mr-10 form-container">
                 <h2 className="text-center mb-4">Sign Up</h2>
                 <form onSubmit={handleSubmit}>
                     <div className="mb-4">
@@ -70,9 +66,6 @@ function Signup() {
                     <button type="submit" className="w-full bg-blue-500 text-white py-2 rounded">Sign Up</button>
                 </form>
                 <p className="text-center mt-4">Already have an account? <Link to="/login" className="text-blue-500">Login</Link></p>
-            </div>
-            <div className="hidden md:block" style={{ maskImage: 'radial-gradient(circle at top left, transparent 20%, black 60%)', WebkitMaskImage: 'radial-gradient(circle at top left, transparent 20%, black 100%)' }}>
-                <img src={signupbooks} className='w-92 h-92 pt-19 md:pl-45' alt="home-book" style={{ width: '100%' }} />
             </div>
         </div>
     );
