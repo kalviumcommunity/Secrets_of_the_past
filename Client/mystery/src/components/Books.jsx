@@ -44,13 +44,11 @@ function Books() {
   };
   return (
    <>
+   {/* <div className="partition"> */}
    <div className='max-w-screen-2xl container mx-auto md:px-20 px-4 py-5'>
     <div>
     <h1 className='font-semibold text-xl pb-2 '>You might like</h1>
-    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. At ex harum autem accusantium voluptates provident veritatis minus numquam quis, commodi assumenda? Assumenda autem esse, amet cupiditate aliquid maiores perferendis saepe!
-    Optio molestiae illo eius odit quod accusantium ipsa consequuntur dolor nobis sapiente in earum vero, excepturi cupiditate hic cum dolorem quasi, esse aspernatur facilis voluptatem numquam? Exercitationem numquam cumque eaque!
-    Architecto autem, esse laborum eligendi atque facilis magnam possimus ratione suscipit quasi quis cupiditate officia id, facere debitis alias repudiandae voluptatum blanditiis earum tempore nulla et, sapiente soluta saepe! Autem.
-    Explicabo, id perspiciatis. Aut molestiae perferendis voluptatum autem accusamus placeat, cumque mollitia doloribus iste minima pariatur, rerum sed reprehenderit, aperiam eveniet beatae facilis doloremque! Quas commodi vel dicta hic debitis!</p>
+    <p>Hey! here are few books. You can read these short stories</p>
     
    </div>
    <div>
@@ -64,6 +62,7 @@ function Books() {
     </div>
     </div>
     </div>
+    {/* </div> */}
    </>
 
   )

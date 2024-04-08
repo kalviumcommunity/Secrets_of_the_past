@@ -1,72 +1,59 @@
-import React from 'react';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { useForm } from 'react-hook-form';
+import login from "../../public/login.png";
 
 function Login() {
-  const { register, handleSubmit, formState: { errors } } = useForm();
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
 
-  const onSubmit = (data) => {
-    console.log(data);
+  const handleLogin = (e) => {
+    e.preventDefault();
+    console.log('Username:', username);
+    console.log('Password:', password);
   };
 
   return (
-    <div>
-      <dialog id="my_modal_3" className="modal">
-        <div className="modal-box">
-          <form onSubmit={handleSubmit(onSubmit)}>
-            <Link to="/" className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">
-              ✕
-            </Link>
-            <h3 className="font-bold text-lg">Login</h3>
-            <p className="py-4">Hello! please Login here</p>
-            {/* email */}
-            <div className="mt-4 space-y-2">
-              <span>Email</span>
-              <br />
-              <input
-                type="email"
-                placeholder="Enter your email"
-                {...register('email', { required: true })}
-                className="w-80 px-3 py-1 border rounded-md outline-none"
-              />
-              {errors.email && <span className="text-red-500">Email is required</span>}
-            </div>
-            {/* password */}
-            <div className="mt-4 space-y-2">
-              <span>Password</span>
-              <br />
-              <input
-                type="password"
-                placeholder="Enter your password (at least 8 characters)"
-                {...register('password', { required: true, minLength: 8 })}
-                className="w-80 px-3 py-1 border rounded-md outline-none"
-              />
-              {errors.password && errors.password.type === "required" && (
-                <span className="text-red-500">Password is required</span>
-              )}
-              {errors.password && errors.password.type === "minLength" && (
-                <span className="text-red-500">Password must be at least 8 characters long</span>
-              )}
-            </div>
-            {/* Button */}
-            <div className="flex justify-around mt-4">
-              <button type="submit" className="bg-blue-900 rounded-md px-3 py-1 hover:bg-blue-500 duration-200">
-                Login
-              </button>
-              <p className="text-xl">
-                Not Registered ?{' '}
-                <Link to="/signup" className="underline text-blue-500 cursor-pointer">
-                  Signup
-                </Link>{' '}
-              </p>
-            </div>
-          </form>
+    <div className="flex items-center justify-center min-h-screen">
+      <div className="w-full md:w-1/2 flex justify-center items-center">
+        <div style={{ maskImage: 'radial-gradient(circle at top left, transparent 10%, black 60%)', WebkitMaskImage: 'radial-gradient(circle at top left, transparent 20%, black 100%)' }}>
+          <img src={login} className='w-32 h-80 rounded-md overflow-hidden mt-[-20px]' alt="home-book" style={{ width: '100%' }} />
         </div>
-      </dialog>
+      </div>
+      <div className="w-full md:w-1/2 flex flex-col items-center justify-center">
+        <h2 className="text-3xl font-semibold mb-8">Login</h2>
+        <form className="w-full max-w-sm" onSubmit={handleLogin}>
+          <div className="mb-4">
+            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="username">Username:</label>
+            <input
+              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              type="text"
+              id="username"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+              required
+            />
+          </div>
+          <div className="mb-4">
+            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="password">Password:</label>
+            <input
+              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              type="password"
+              id="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
+          </div>
+          <div className="flex items-center justify-between">
+            <button type="submit" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+              Login
+            </button>
+          </div>
+        </form>
+        <p className="mt-4"> Don't have an account? <Link to="/signup" className="text-blue-500">Sign Up</Link></p>
+      </div>
     </div>
   );
 }
-
-// backend part: signup = login, kept simple for now
 
 export default Login;

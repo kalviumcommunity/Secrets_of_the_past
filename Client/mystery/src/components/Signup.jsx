@@ -1,60 +1,65 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { useForm } from 'react-hook-form';
+import loginbooks from "../../public/loginbooks.png";
 
-function Signup() {
-  const { register, handleSubmit, formState: { errors } } = useForm();
+function Signup({ onSignup }) {
+    const [username, setUsername] = useState('');
+    const [password, setPassword] = useState('');
+    const [signupError, setSignupError] = useState('');
 
-  const onSubmit = (data) => {
-    console.log(data); 
-  };
+    const handleSubmit = async (event) => {
+        event.preventDefault();
+        try {
+            if (password.length < 6) {
+                setSignupError("Password should be more than 5 characters");
+                return;
+            }
+            onSignup(username, password);
+        } catch (err) {
+            console.error(err);
+            setSignupError('An error occurred during the signup');
+        }
+    };
 
-  return (
-    <div className='flex h-screen items-center justify-center'>
-      <div className='w-[600px]'>
-        <div className='modal-box'>
-          <form onSubmit={handleSubmit(onSubmit)}>
-            <Link to='/' className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</Link>
-            <h3 className="font-bold text-lg">Signup</h3>
-            <p className="py-4">Hello! please Signup here</p>
-            {/* Name */}
-            <div className='mt-4 space-y-2'>
-              <span>Name</span>
-              <br />
-              <input type="text" placeholder='Enter your name' {...register('name', { required: true })} className='w-80 px-3 py-1 border rounded-md outline-none'/>
-              {errors.name && <span className="text-red-500">Name is required</span>}
+    return (
+        <div className="flex max-w-screen-2xl container mx-auto md:px-20 px-4">
+            <div className="w-full md:w-1/2 flex flex-col justify-center items-center">
+                <form onSubmit={handleSubmit} className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+                    <div className="mb-4">
+                        <label htmlFor="name" className='block text-gray-700 text-sm font-bold mb-2'>Username:</label>
+                        <input
+                            type="text"
+                            id="name"
+                            value={username}
+                            onChange={(e) => setUsername(e.target.value)}
+                            required
+                            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                        />
+                    </div>
+
+                    <div className="mb-6">
+                        <label htmlFor="password" className='block text-gray-700 text-sm font-bold mb-2'>Password:</label>
+                        <input
+                            type="password"
+                            id="password"
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
+                            required
+                            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                        />
+                    </div>
+                    {signupError && <p className="text-red-500 text-xs italic">{signupError}</p>}
+                    <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">Sign Up</button>
+                </form>
+                <p className="text-gray-700 text-xs">Already have an account? <Link to='/login' className="text-blue-500 hover:text-blue-700">Login</Link></p>
             </div>
-            {/* email */}
-            <div className='mt-4 space-y-2'>
-              <span>Email</span>
-              <br />
-              <input type="email" placeholder='Enter your email' {...register('email', { required: true })} className='w-80 px-3 py-1 border rounded-md outline-none'/>
-              {errors.email && <span className="text-red-500">Email is required</span>}
+            <div className="w-full md:w-1/2 flex justify-center items-center pt-8 md:pt-20 md:pt-0">
+            <div style={{ maskImage: 'radial-gradient(circle at top left, transparent 10%, black 60%)', WebkitMaskImage: 'radial-gradient(circle at top left, transparent 20%, black 100%)' }}>
+                <img src={loginbooks} className='w-40 h-110 rounded-md overflow-hidden' alt="home-book" style={{ width: '100%', marginTop: '20px' }} />
+                </div>
             </div>
-            {/* password */}
-            <div className='mt-4 space-y-2'>
-              <span>Password</span>
-              <br />
-              <input type="password" placeholder='Enter your password (at least 8 characters)' {...register('password', { required: true, minLength: 8 })} className='w-80 px-3 py-1 border rounded-md outline-none'/>
-              {errors.password && errors.password.type === "required" && (
-                <span className="text-red-500">Password is required</span>
-              )}
-              {errors.password && errors.password.type === "minLength" && (
-                <span className="text-red-500">Password must be at least 8 characters long</span>
-              )}
-            </div>
-            {/* Button */}
-            <div className='flex justify-around mt-4'>
-              <button type="submit" className='bg-blue-900 rounded-md px-3 py-1 hover:bg-blue-500 duration-200'>Signup</button>
-              <p className='text-xl'>Have Account ?{' '}
-                <Link to="/" className='underline text-blue-500 cursor-pointer'>Login</Link>
-              </p>
-            </div>
-          </form>
         </div>
-      </div>
-    </div>
-  );
+    );
 }
 
 export default Signup;

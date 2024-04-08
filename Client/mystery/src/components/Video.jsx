@@ -1,6 +1,6 @@
 import React from 'react'
-import Navbar from '../components/Navbar'
-import Videos from '../components/Videos'
+import Navbar from './Navbar'
+import Videos from './Videos'
 
 function real() {
   return (

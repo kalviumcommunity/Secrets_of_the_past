@@ -1,6 +1,6 @@
 import React from 'react'
-import Navbar from '../components/Navbar'
-import Real from '../components/Real'
+import Navbar from './Navbar'
+import Real from './Real'
 
 function Incidents() {
   return (
