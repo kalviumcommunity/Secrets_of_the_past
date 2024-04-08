@@ -1,11 +1,12 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-import loginbooks from "../../public/loginbooks.png";
+import { useState } from 'react';
+import { Link, Navigate } from 'react-router-dom'; 
+import axios from 'axios';
 
-function Signup({ onSignup }) {
+function Signup() {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [signupError, setSignupError] = useState('');
+    const [signupSuccess, setSignupSuccess] = useState(false); 
 
     const handleSubmit = async (event) => {
         event.preventDefault();
@@ -14,50 +15,56 @@ function Signup({ onSignup }) {
                 setSignupError("Password should be more than 5 characters");
                 return;
             }
-            await onSignup(username, password);
+            const response = await axios.post(`https://secrets-of-the-past.onrender.com/signup`, { username, password }); // Assuming your backend is running on localhost:3000
+            if (response.status === 201) {
+                sessionStorage.setItem('login', true);
+                sessionStorage.setItem('signupSuccess', 'Signup successful');
+                console.log(response.data); 
+                setSignupSuccess(true); 
+            } else {
+                setSignupError('Signup failed');
+            }
         } catch (err) {
             console.error(err);
             setSignupError('An error occurred during the signup');
         }
-    };
+    }
+
+    if (signupSuccess) {
+        return <Navigate to="/login" />;
+    }
 
     return (
-        <div className="flex max-w-screen-2xl container mx-auto md:px-20 px-4">
-            <div className="w-full md:w-1/2 flex flex-col justify-center items-center">
-                <form onSubmit={handleSubmit} className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
-                    <div className="mb-4">
-                        <label htmlFor="name" className='block text-gray-700 text-sm font-bold mb-2'>Username:</label>
-                        <input
-                            type="text"
-                            id="name"
-                            value={username}
-                            onChange={(e) => setUsername(e.target.value)}
-                            required
-                            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                        />
-                    </div>
-
-                    <div className="mb-6">
-                        <label htmlFor="password" className='block text-gray-700 text-sm font-bold mb-2'>Password:</label>
-                        <input
-                            type="password"
-                            id="password"
-                            value={password}
-                            onChange={(e) => setPassword(e.target.value)}
-                            required
-                            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                        />
-                    </div>
-                    {signupError && <p className="text-red-500 text-xs italic">{signupError}</p>}
-                    <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">Sign Up</button>
-                </form>
-                <p className="text-gray-700 text-xs">Already have an account? <Link to='/login' className="text-blue-500 hover:text-blue-700">Login</Link></p>
-            </div>
-            <div className="w-full md:w-1/2 flex justify-center items-center pt-8 md:pt-20 md:pt-0">
-                <div style={{ maskImage: 'radial-gradient(circle at top left, transparent 10%, black 60%)', WebkitMaskImage: 'radial-gradient(circle at top left, transparent 20%, black 100%)' }}>
-                    <img src={loginbooks} className='w-40 h-110 rounded-md overflow-hidden' alt="home-book" style={{ width: '100%', marginTop: '20px' }} />
+        <div style={{ maxWidth: '400px', margin: '0 auto', padding: '20px', border: '1px solid #ccc', borderRadius: '5px' }}>
+            <h2 style={{ textAlign: 'center', marginBottom: '20px' }}>Sign Up</h2>
+            <form onSubmit={handleSubmit}>
+                <div>
+                    <label htmlFor="name" style={{ marginBottom: '5px', fontWeight: 'bold' }}>Username:</label>
+                    <input
+                        type="text"
+                        id="name"
+                        value={username}
+                        onChange={(e) => setUsername(e.target.value)}
+                        required
+                        style={{ padding: '10px', marginBottom: '15px', border: '1px solid #ccc', borderRadius: '5px', fontSize: '16px' }}
+                    />
                 </div>
-            </div>
+
+                <div>
+                    <label htmlFor="password" style={{ marginBottom: '5px', fontWeight: 'bold' }}>Password:</label>
+                    <input
+                        type="password"
+                        id="password"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                        required
+                        style={{ padding: '10px', marginBottom: '15px', border: '1px solid #ccc', borderRadius: '5px', fontSize: '16px' }}
+                    />
+                </div>
+                {signupError && <p style={{ color: 'red', marginBottom: '10px' }}>{signupError}</p>}
+                <button type="submit" style={{ backgroundColor: '#007bff', color: 'white', padding: '10px 20px', border: 'none', borderRadius: '5px', fontSize: '16px', cursor: 'pointer' }}>Sign Up</button>
+            </form>
+            <p style={{ textAlign: 'center' }}>Already have an account? <Link to="/login" style={{ color: '#007bff', textDecoration: 'none' }}>Login</Link></p>
         </div>
     );
 }
