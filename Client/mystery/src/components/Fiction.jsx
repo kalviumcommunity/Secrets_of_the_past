@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-function Real() {
+function Fiction() {
   const [stories, setStories] = useState([]);
 
   useEffect(() => {
@@ -39,4 +39,4 @@ function Real() {
   );
 }
 
-export default Real;
+export default Fiction;

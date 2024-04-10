@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const FactEntity = require('./factschema');
+const ImageEntity = require ('./imageschema')
 
 const EntitySchema = new mongoose.Schema({
     Mystery: {
@@ -16,5 +17,6 @@ const Entity = mongoose.model('books-collections', EntitySchema);
 module.exports = {
     BooksEntity: Entity,
     FictionEntity: require('./fictionSchema'),
-    FactEntity: require('./factschema')
+    FactEntity: require('./factschema'),
+    ImageEntity: require('./imageschema')
 };
