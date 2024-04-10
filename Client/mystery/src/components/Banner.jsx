@@ -9,7 +9,7 @@ function Banner() {
   useEffect(() => {
     const options = {
       strings: ["Hello Detectives,<br />welcome to the dark world of mysteries just read and dive into <span class='text-yellow-400'>THE SECRETS</span>"],
-      typeSpeed: 60,
+      typeSpeed: 70,
       loop: true
     };
 

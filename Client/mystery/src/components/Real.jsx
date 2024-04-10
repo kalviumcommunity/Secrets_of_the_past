@@ -4,7 +4,7 @@ function Real() {
   const [stories, setStories] = useState([]);
 
   useEffect(() => {
-    fetch('https://secrets-of-the-past-2.onrender.com/get')
+    fetch('https://secrets-of-the-past-2.onrender.com/books')
       .then(response => response.json())
       .then(data => {
         setStories(data);
