@@ -1,6 +1,6 @@
 import React from 'react'
 import Navbar from './Navbar'
-import Images from './Videos';
+import Images from './Images';
 
 function real() {
   return (

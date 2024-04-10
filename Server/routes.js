@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { BooksEntity, FictionEntity, FactEntity } = require('./schema');
+const { BooksEntity, FictionEntity, FactEntity, ImageEntity } = require('./schema');
 const userInfo = require('./userschema'); 
 
 
@@ -25,6 +25,17 @@ router.get('/fiction', async (req, res) => {
         res.status(500).json({ error: 'Internal Server Error' });
     }
 });
+
+router.get('/images', async (req, res) =>{
+    try{
+        const image = await ImageEntity.find().maxTimeMS(20000).exec();
+        res.json(image);
+        }
+        catch (err) {
+            console.error('Error in getting images:', err);
+            res.status(500).json({ error: 'Internal Server Error' });
+        }
+})
 
 router.get('/facts', async (req,res) => {
     try{
