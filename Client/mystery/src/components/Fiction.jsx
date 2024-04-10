@@ -10,6 +10,7 @@ function Fiction() {
         if (!response.ok) {
           throw new Error('Failed to fetch fiction stories');
         }
+        setError(null);
         return response.json();
       })
       .then(data => {
@@ -26,7 +27,7 @@ function Fiction() {
       <div className='max-w-screen-2xl container mx-auto md:px-20 px-4'>
         <div className='mt-28 items-center justify-center text-center'>
           <h1 className='text-2xl md:text-4xl'>Would you like to read <span className='text-red-700'>Fictional Stories ?</span></h1>
-          {error && <p className='text-red-500'>{error}</p>} 
+          {error && <p className='text-red-500'>{error}</p>}  
           {!error && (
             <>
               <p className='mt-7 pb-7'>Here are a few fictional stories for you</p>
