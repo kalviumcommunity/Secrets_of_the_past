@@ -2,10 +2,22 @@ const mongoose = require('mongoose');
 
 const ImageSchema = new mongoose.Schema({
     ImageMystery: {
-        name: String,
-        image: String,
-        description: String,
-       
+        name: {
+            type: String,
+            required: true, 
+            trim: true, 
+            maxlength: 100 
+        },
+        image: {
+            type: String,
+            required: true 
+        },
+        description: {
+            type: String,
+            required: true, 
+            trim: true, 
+            maxlength: 500 
+        }
     }
 });
 
