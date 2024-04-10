@@ -24,7 +24,7 @@ function Navbar() {
       <li><Link to="/real">Real</Link></li>
       <li><Link to="/fiction">Fiction</Link></li>
       <li><Link to="/facts">Facts</Link></li>
-      <li><Link to="/videos">Videos</Link></li>
+      <li><Link to="/images">Images</Link></li>
     </>
   );
 

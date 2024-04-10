@@ -1,7 +1,8 @@
 const express = require('express');
 const router = express.Router();
-const { BooksEntity, FictionEntity } = require('./schema');
+const { BooksEntity, FictionEntity, FactEntity } = require('./schema');
 const userInfo = require('./userschema'); 
+
 
 router.use(express.json());
 
@@ -24,6 +25,16 @@ router.get('/fiction', async (req, res) => {
         res.status(500).json({ error: 'Internal Server Error' });
     }
 });
+
+router.get('/facts', async (req,res) => {
+    try{
+        const fact = await FactEntity.find().maxTimeMS(20000).exec();
+        res.json(fact);
+    } catch (err) {
+        console.error('Error in getting facts:', err);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+})
 
 router.post('/signup', async (req, res) => {
     try {

@@ -12,23 +12,36 @@ body{
     background-size: cover;
        
 }
-/* .slider-container {
-    background-color: rgb(255, 0, 4);
-}
-.slider-list {
-    background-color: rgb(255, 0, 4);
-} */
+
 .color{
-    background-color: rgb(255, 0, 4);
+    border-top-left-radius: 5px;
+    border-top-right-radius: 1px;
+    border-bottom-right-radius: 15px;
+    border-bottom-left-radius: 2px;
+    background-color: rgb(9, 3, 0);
+
 
 }
 .card-body{
-    background-color: rgb(255, 0, 4);
-
+    background-color: rgb(9, 3, 0);
 }
 
 
 .blur {
     filter: blur(1.5px); 
-  }
+}
   
+.signup-image {
+    mask-image: radial-gradient(circle at top left, transparent 20%, black 60%);
+    -webkit-mask-image: radial-gradient(circle at top left, transparent 20%, black 100%);
+    width: 100%;
+    padding-left: 5rem; 
+    margin-left: 10rem;
+}
+
+.form-container {
+    margin-left: 10rem; 
+    margin-top: 10rem;
+}
+
+

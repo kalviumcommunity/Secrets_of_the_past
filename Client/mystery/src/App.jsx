@@ -18,7 +18,7 @@ function App() {
         <Route path="/real" element={<Incidents />} />
         <Route path="/fiction" element={<Fictional />} />
         <Route path="/facts" element={<More />} />
-        <Route path="/videos" element={<Video />} />
+        <Route path="/images" element={<Video />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
       </Routes>
