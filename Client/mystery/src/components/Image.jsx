@@ -2,7 +2,7 @@ import React from 'react'
 import Navbar from './Navbar'
 import Images from './Images';
 
-function real() {
+function Image() {
   return (
     <>
         <Navbar/>
@@ -13,4 +13,4 @@ function real() {
   );
 }
 
-export default real
+export default Image
