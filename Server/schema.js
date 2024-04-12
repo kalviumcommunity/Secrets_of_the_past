@@ -20,5 +20,6 @@ module.exports = {
     FactEntity: require('./factschema'),
     ImageEntity: require('./imageschema'),
     
+    
 
 };

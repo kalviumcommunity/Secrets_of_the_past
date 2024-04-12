@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { BooksEntity, Entity, FictionEntity, FactEntity, ImageEntity, } = require('./schema');
+const {  BooksEntity, FictionEntity, FactEntity, ImageEntity, } = require('./schema');
 const userInfo = require('./userschema');
 
 router.use(express.json());
@@ -20,6 +20,7 @@ router.post('/add-real', async (req, res) => {
         console.log("Received request body:", req.body); 
         const newRealBook = await BooksEntity.create(req.body);
         res.status(201).json(newRealBook);
+        res.send(newRealBook)
     } catch (err) {
         console.error('Error adding real book:', err);
         res.status(500).json({ error: err.message || 'Internal Server Error' });
