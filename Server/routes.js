@@ -15,6 +15,16 @@ router.get('/books', async (req, res) => {
         res.status(500).json({ error: 'Internal Server Error' });
     }
 });
+router.post('/add-real', async (req, res) => {
+    try {
+        const newEntity = await BooksEntity.create(req.body);
+        res.status(201).json(newEntity); 
+    } catch (err) {
+        console.error('Error adding real books:', err);
+        res.status(500).json({ error: 'Internal Server Error' }); 
+    }
+});
+
 
 router.get('/fiction', async (req, res) => {
     try {
@@ -82,5 +92,7 @@ router.post('/logout', (req, res) => {
     res.clearCookie('token');
     res.status(200).json({ message: 'Logout successful' });
 });
+
+
 
 module.exports = router;

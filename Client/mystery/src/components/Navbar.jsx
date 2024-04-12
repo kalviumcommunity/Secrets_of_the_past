@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 function Navbar() {
   const [sticky, setSticky] = useState(false);
+  const location = useLocation();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -27,6 +28,9 @@ function Navbar() {
       <li><Link to="/images">Images</Link></li>
     </>
   );
+
+  const isHomePage = location.pathname === '/';
+  const isRealPage = location.pathname === '/real'
 
   return (
     <>
@@ -57,10 +61,17 @@ function Navbar() {
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" className="w-5 h-4 opacity-70"><path fillRule="evenodd" d="M9.965 11.026a5 5 0 1 1 1.06-1.06l2.755 2.754a.75.75 0 1 1-1.06 1.06l-2.755-2.754ZM10.5 7a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Z" clipRule="evenodd" /></svg>
               </label>
             </div>
-            <div className="">
-              <Link to="/login" className="bg-black text-white px-3 py-2 rounded-md hover:bg-slate-800 duration-300 cursor-pointer">Login</Link>
-              <Link to="/signup" className="bg-black text-white px-3 py-2 rounded-md hover:bg-slate-800 duration-300 cursor-pointer">Signup</Link>
-            </div>
+            {isHomePage && (
+              <div className="">
+                <Link to="/login" className="bg-black text-white px-3 py-2 rounded-md hover:bg-slate-800 duration-300 cursor-pointer">Login</Link>
+                <Link to="/signup" className="bg-black text-white px-3 py-2 rounded-md hover:bg-slate-800 duration-300 cursor-pointer">Signup</Link>
+              </div>
+            )}
+            {isRealPage && (
+              <div className="">
+                <Link to="/add-real" className="bg-black text-white px-3 py-2 rounded-md hover:bg-slate-800 duration-300 cursor-pointer">Add</Link>
+              </div>
+            )}
           </div>
         </div>
       </div>
