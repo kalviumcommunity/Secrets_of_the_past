@@ -2,7 +2,8 @@ const mongoose = require('mongoose');
 
 const FactSchema = new mongoose.Schema({
     FactMystery: {
-        fact: String,
+        title: String,
+        info: String
        
     }
 });
