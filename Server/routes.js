@@ -1,13 +1,13 @@
 const express = require('express');
 const router = express.Router();
-const {  Entity, FictionEntity, FactEntity, ImageEntity, } = require('./schema');
+const {  BooksEntity, FictionEntity, FactEntity, ImageEntity, } = require('./schema');
 const userInfo = require('./userschema');
 
 router.use(express.json());
 
 router.get('/books', async (req, res) => {
     try {
-        const books = await Entity.find().maxTimeMS(20000).exec();
+        const books = await BooksEntity.find().maxTimeMS(20000).exec();
         res.json(books);
     } catch (err) {
         console.error('Error in GET books request:', err);
@@ -18,7 +18,7 @@ router.get('/books', async (req, res) => {
 router.post('/add-real', async (req, res) => {
     try {
         console.log("Received request body:", req.body); 
-        const newRealBook = await Entity.create(req.body);
+        const newRealBook = await BooksEntity.create(req.body);
         res.status(201).json(newRealBook);
     } catch (err) {
         console.error('Error adding real book:', err);

@@ -15,10 +15,11 @@ const EntitySchema = new mongoose.Schema({
 const Entity = mongoose.model('books-collections', EntitySchema);
 
 module.exports = {
-    Entity,
+    BooksEntity: Entity,
     FictionEntity: require('./fictionSchema'),
     FactEntity: require('./factschema'),
     ImageEntity: require('./imageschema'),
+    
     
 
 };
