@@ -1,8 +1,7 @@
 const express = require('express');
 const router = express.Router();
-const { BooksEntity, FictionEntity, FactEntity, ImageEntity } = require('./schema');
-const userInfo = require('./userschema'); 
-
+const { BooksEntity, Entity, FictionEntity, FactEntity, ImageEntity, } = require('./schema');
+const userInfo = require('./userschema');
 
 router.use(express.json());
 
@@ -15,15 +14,19 @@ router.get('/books', async (req, res) => {
         res.status(500).json({ error: 'Internal Server Error' });
     }
 });
-router.post('/add-real', async (req, res) => {
+
+
+
+router.post('/real/add-real', async (req, res) => {
     try {
-        const newEntity = await BooksEntity.create(req.body);
-        res.status(201).json(newEntity); 
+        const newRealBook = await BooksEntity.create(req.body);
+        res.status(201).json(newRealBook);
     } catch (err) {
-        console.error('Error adding real books:', err);
-        res.status(500).json({ error: 'Internal Server Error' }); 
+        console.error('Error adding real book:', err);
+        res.status(500).json({ error: err.message || 'Internal Server Error' });
     }
 });
+
 
 
 router.get('/fiction', async (req, res) => {
@@ -40,22 +43,21 @@ router.get('/images', async (req, res) =>{
     try{
         const image = await ImageEntity.find().maxTimeMS(20000).exec();
         res.json(image);
-        }
-        catch (err) {
-            console.error('Error in getting images:', err);
-            res.status(500).json({ error: 'Internal Server Error' });
-        }
-})
+    } catch (err) {
+        console.error('Error in getting images:', err);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+});
 
-router.get('/facts', async (req,res) => {
-    try{
+router.get('/facts', async (req, res) => {
+    try {
         const fact = await FactEntity.find().maxTimeMS(20000).exec();
         res.json(fact);
     } catch (err) {
         console.error('Error in getting facts:', err);
         res.status(500).json({ error: 'Internal Server Error' });
     }
-})
+});
 
 router.post('/signup', async (req, res) => {
     try {
@@ -71,7 +73,6 @@ router.post('/signup', async (req, res) => {
     }
 });
 
-
 router.post('/login', async (req, res) => {
     try {
         const { username, password } = req.body;
@@ -81,7 +82,6 @@ router.post('/login', async (req, res) => {
             return res.status(401).json({ error: 'Invalid username / password' });
         }
         res.status(200).json({ user });
-
     } catch (err) {
         console.error('Error in user login:', err);
         res.status(500).json({ error: 'Internal Server Error' });
@@ -92,7 +92,5 @@ router.post('/logout', (req, res) => {
     res.clearCookie('token');
     res.status(200).json({ message: 'Logout successful' });
 });
-
-
 
 module.exports = router;

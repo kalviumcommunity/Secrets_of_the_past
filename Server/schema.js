@@ -18,5 +18,7 @@ module.exports = {
     BooksEntity: Entity,
     FictionEntity: require('./fictionSchema'),
     FactEntity: require('./factschema'),
-    ImageEntity: require('./imageschema')
+    ImageEntity: require('./imageschema'),
+    
+
 };
