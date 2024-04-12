@@ -20,6 +20,7 @@ router.post('/add-real', async (req, res) => {
         console.log("Received request body:", req.body); 
         const newRealBook = await BooksEntity.create(req.body);
         res.status(201).json(newRealBook);
+        res.send(newRealBook)
     } catch (err) {
         console.error('Error adding real book:', err);
         res.status(500).json({ error: err.message || 'Internal Server Error' });
