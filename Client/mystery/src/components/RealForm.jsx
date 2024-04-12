@@ -25,7 +25,7 @@ function RealForm() {
     e.preventDefault();
     console.log("Form Data:", formData); 
     try {
-      const response = await axios.post('https://secrets-of-the-past-1.onrender.com/add-real', formData); // Update endpoint URL
+      const response = await axios.post('https://secrets-of-the-past-1.onrender.com/add-real', formData); 
       console.log(response);
       navigate('/real'); 
     } catch (error) {
