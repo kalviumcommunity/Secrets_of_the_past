@@ -15,10 +15,9 @@ router.get('/books', async (req, res) => {
     }
 });
 
-
-
 router.post('/add-real', async (req, res) => {
     try {
+        console.log("Received request body:", req.body); 
         const newRealBook = await BooksEntity.create(req.body);
         res.status(201).json(newRealBook);
     } catch (err) {
@@ -26,8 +25,6 @@ router.post('/add-real', async (req, res) => {
         res.status(500).json({ error: err.message || 'Internal Server Error' });
     }
 });
-
-
 
 router.get('/fiction', async (req, res) => {
     try {
