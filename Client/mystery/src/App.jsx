@@ -8,6 +8,7 @@ import Images from './components/Image';
 import Login from './components/Login';
 import Signup from './components/Signup';
 import Navbar from './components/Navbar';
+import RealForm from './components/RealForm';
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
         <Route path="/images" element={<Images />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
+        <Route path="/add-real" element={<RealForm />} />
       </Routes>
     </>
   );
