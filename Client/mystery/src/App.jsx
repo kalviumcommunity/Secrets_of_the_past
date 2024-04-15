@@ -10,6 +10,7 @@ import Navbar from './components/Navbar';
 import RealForm from './components/RealForm';
 import FictionForm from './components/FictionForm';
 import ImageForm from './components/ImageForm';
+import FactsForm from './components/FactsForm';
 
 function App() {
   return (
@@ -26,6 +27,8 @@ function App() {
         <Route path="/add-real" element={<RealForm />} />
         <Route path="/add-fictional" element={<FictionForm/>} />
         <Route path="/add-images" element={<ImageForm/>} />
+        <Route path="/add-facts" element={<FactsForm/>} />
+        
       </Routes>
     </>
   );
