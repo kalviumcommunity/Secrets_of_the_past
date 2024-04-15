@@ -30,8 +30,9 @@ function Navbar() {
   );
 
   const isHomePage = location.pathname === '/';
-  const isRealPage = location.pathname === '/real'
-  const isFictionPage = location.pathname === '/fiction'
+  const isRealPage = location.pathname === '/real';
+  const isFictionPage = location.pathname === '/fiction';
+  const isImagePage = location.pathname === '/images'
 
   return (
     <>
@@ -76,6 +77,11 @@ function Navbar() {
             {isFictionPage && (
               <div className="">
                 <Link to="/add-fictional" className="bg-black text-white px-3 py-2 rounded-md hover:bg-slate-800 duration-300 cursor-pointer">Add</Link>
+              </div>
+            )}
+            {isImagePage && (
+              <div className="">
+                <Link to="/add-images" className="bg-black text-white px-3 py-2 rounded-md hover:bg-slate-800 duration-300 cursor-pointer">Add</Link>
               </div>
             )}
           </div>

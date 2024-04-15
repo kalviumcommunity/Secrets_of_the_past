@@ -59,6 +59,19 @@ router.get('/images', async (req, res) =>{
     }
 });
 
+router.post('/add-images', async (req, res) => {
+    try {
+        console.log("Received request body:", req.body); 
+        const newImage = await ImageEntity.create(req.body);
+        res.status(201).json(newImage);
+        res.send(newImage)
+    } catch (err) {
+        console.error('Error adding image book:', err);
+        res.status(500).json({ error: err.message || 'Internal Server Error' });
+    }
+});
+
+
 router.get('/facts', async (req, res) => {
     try {
         const fact = await FactEntity.find().maxTimeMS(20000).exec();
