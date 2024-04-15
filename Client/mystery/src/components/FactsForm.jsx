@@ -1,6 +1,18 @@
-import { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+
+function SubmitButton({ onClick, label }) {
+  return (
+    <button
+      type="submit"
+      onClick={onClick}
+      className="bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 focus:outline-none focus:bg-blue-600 transition duration-300 w-full"
+    >
+      {label}
+    </button>
+  );
+}
 
 function FactsForm() {
   const [formData, setFormData] = useState({
@@ -8,6 +20,7 @@ function FactsForm() {
     info: '', 
   });
 
+  const [facts, setFacts] = useState([]);
   const navigate = useNavigate(); 
 
   const handleChange = (e) => {
@@ -17,6 +30,19 @@ function FactsForm() {
       [name]: value,
     });
   };
+
+  useEffect(() => {
+    const fetchFacts = async () => {
+      try {
+        const response = await axios.get('https://secrets-of-the-past-1.onrender.com/facts');
+        setFacts(response.data);
+      } catch (error) {
+        console.log('Error fetching facts:', error);
+      }
+    };
+
+    fetchFacts();
+  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -36,8 +62,19 @@ function FactsForm() {
         <form onSubmit={handleSubmit}>
           <input type="text" name="title" placeholder="Title" value={formData.title} onChange={handleChange} className="border border-gray-300 px-3 py-2 rounded-md mb-2 block w-full" />
           <textarea name="info" placeholder="Info" rows="3" value={formData.info} onChange={handleChange} className="border border-gray-300 px-3 py-2 rounded-md mb-2 block w-full"></textarea>
-          <button type="submit" className="bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 focus:outline-none focus:bg-blue-600 transition duration-300 w-full">Submit</button>
+          <SubmitButton onClick={handleSubmit} label="Submit" />
         </form>
+      </div>
+      <div>
+        <h2 className="text-lg font-bold mb-4">Facts List</h2>
+        <ul>
+          {facts.map((fact) => (
+            <li key={fact.id}>
+              <div>Title: {fact.title}</div>
+              <div>Info: {fact.info}</div>
+            </li>
+          ))}
+        </ul>
       </div>
     </div>
   );
