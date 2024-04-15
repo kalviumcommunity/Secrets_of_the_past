@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 const ImageSchema = new mongoose.Schema({
-    ImageMystery: {
+    
         name: {
             type: String,
             required: true, 
@@ -18,7 +18,7 @@ const ImageSchema = new mongoose.Schema({
             trim: true, 
             maxlength: 500 
         }
-    }
+    
 });
 
 const ImageEntity = mongoose.model('images-collections', ImageSchema);
