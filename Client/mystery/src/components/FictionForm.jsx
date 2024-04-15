@@ -1,4 +1,4 @@
-import  { useState } from 'react';
+import { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
@@ -25,9 +25,8 @@ function FictionForm() {
     e.preventDefault();
     console.log("Form Data:", formData); 
     try {
-      const response = await axios.post('https://secrets-of-the-past-1.onrender.com/add-fictional', formData); 
-      console.log(response);
-      navigate('/fiction'); 
+      await axios.post('https://secrets-of-the-past-1.onrender.com/add-fictional', formData); 
+      navigate('/fiction');
     } catch (error) {
       console.log('Error adding fictional book:', error);
     }
