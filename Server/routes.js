@@ -80,6 +80,18 @@ router.get('/facts', async (req, res) => {
     }
 });
 
+router.post('/add-facts', async (req, res) => {
+    try {
+        console.log("Received request body:", req.body); 
+        const newFact = await FactEntity.create(req.body);
+        res.status(201).json(newFact);
+    } catch (err) {
+        console.error('Error adding fact book:', err);
+        res.status(500).json({ error: err.message || 'Internal Server Error' });
+    }
+});
+
+
 router.post('/signup', async (req, res) => {
     try {
         const { username, password } = req.body;
