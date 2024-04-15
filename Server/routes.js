@@ -1,9 +1,11 @@
 const express = require('express');
 const router = express.Router();
-const {  BooksEntity, FictionEntity, FactEntity, ImageEntity, } = require('./schema');
+const cors = require('cors'); 
+const { BooksEntity, FictionEntity, FactEntity, ImageEntity } = require('./schema');
 const userInfo = require('./userschema');
 
 router.use(express.json());
+router.use(cors()); 
 
 router.get('/books', async (req, res) => {
     try {
@@ -20,7 +22,6 @@ router.post('/add-real', async (req, res) => {
         console.log("Received request body:", req.body); 
         const newRealBook = await BooksEntity.create(req.body);
         res.status(201).json(newRealBook);
-        res.send(newRealBook)
     } catch (err) {
         console.error('Error adding real book:', err);
         res.status(500).json({ error: err.message || 'Internal Server Error' });
@@ -42,17 +43,16 @@ router.post('/add-fictional', async (req, res) => {
         console.log("Received request body:", req.body); 
         const newFictionBook = await FictionEntity.create(req.body);
         res.status(201).json(newFictionBook);
-        res.send(newFictionBook)
     } catch (err) {
         console.error('Error adding fictional book:', err);
         res.status(500).json({ error: err.message || 'Internal Server Error' });
     }
 });
 
-router.get('/images', async (req, res) =>{
-    try{
-        const image = await ImageEntity.find().maxTimeMS(20000).exec();
-        res.json(image);
+router.get('/images', async (req, res) => {
+    try {
+        const images = await ImageEntity.find().maxTimeMS(20000).exec();
+        res.json(images);
     } catch (err) {
         console.error('Error in getting images:', err);
         res.status(500).json({ error: 'Internal Server Error' });
@@ -64,13 +64,11 @@ router.post('/add-images', async (req, res) => {
         console.log("Received request body:", req.body); 
         const newImage = await ImageEntity.create(req.body);
         res.status(201).json(newImage);
-        res.send(newImage)
     } catch (err) {
         console.error('Error adding image book:', err);
         res.status(500).json({ error: err.message || 'Internal Server Error' });
     }
 });
-
 
 router.get('/facts', async (req, res) => {
     try {
