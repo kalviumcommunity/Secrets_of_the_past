@@ -41,10 +41,10 @@ router.post('/add-fictional', async (req, res) => {
     try {
         console.log("Received request body:", req.body); 
         const newFictionalBook = await FictionEntity.create(req.body);
-        res.status(201).json(newRealBook);
+        res.status(201).json(newFictionalBook);
         res.send(newFictionalBook)
     } catch (err) {
-        console.error('Error adding real book:', err);
+        console.error('Error adding fictional book:', err);
         res.status(500).json({ error: err.message || 'Internal Server Error' });
     }
 });
