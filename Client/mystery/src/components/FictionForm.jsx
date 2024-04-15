@@ -25,7 +25,7 @@ function FictionForm() {
     e.preventDefault();
     console.log("Form Data:", formData); 
     try {
-      const response = await axios.post('https://secrets-of-the-past-1.onrender.com/add-fiction', formData); 
+      const response = await axios.post('https://secrets-of-the-past-1.onrender.com/add-fictional', formData); 
       console.log(response);
       navigate('/fiction'); 
     } catch (error) {
