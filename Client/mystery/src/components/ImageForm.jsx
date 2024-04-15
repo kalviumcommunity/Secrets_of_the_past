@@ -26,14 +26,14 @@ function ImageForm() {
       await axios.post('https://secrets-of-the-past-1.onrender.com/add-images', formData); 
       navigate('/images');
     } catch (error) {
-      console.log('Error adding fictional book:', error);
+      console.log('Error adding image:', error);
     }
   };
 
   return (
     <div className='image-form-container flex justify-center items-center h-full mt-20'>
       <div className="w-full max-w-sm p-4 bg-white rounded-md shadow-md">
-        <h1 className="text-lg font-bold mb-4">Add Mysterious Imagesk</h1>
+        <h1 className="text-lg font-bold mb-4">Add Mysterious Images</h1>
         <form onSubmit={handleSubmit}>
           <input type="text" name="name" placeholder="Image Name" value={formData.name} onChange={handleChange} className="border border-gray-300 px-3 py-2 rounded-md mb-2 block w-full" />
           <textarea name="description" placeholder="Description" rows="3" value={formData.description} onChange={handleChange} className="border border-gray-300 px-3 py-2 rounded-md mb-2 block w-full"></textarea>
