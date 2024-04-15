@@ -9,6 +9,7 @@ import Signup from './components/Signup';
 import Navbar from './components/Navbar';
 import RealForm from './components/RealForm';
 import FictionForm from './components/FictionForm';
+import ImageForm from './components/ImageForm';
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
         <Route path="/signup" element={<Signup />} />
         <Route path="/add-real" element={<RealForm />} />
         <Route path="/add-fictional" element={<FictionForm/>} />
+        <Route path="/add-images" element={<ImageForm/>} />
       </Routes>
     </>
   );
