@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const cors = require('cors'); 
-const { BooksEntity, FictionEntity, FactEntity, ImageEntity } = require('./schema');
+const { BooksEntity, FictionEntity, FactEntity, ImageEntity, SpeakEntity } = require('./schema');
 const userInfo = require('./userschema');
 
 router.use(express.json());
@@ -90,6 +90,27 @@ router.post('/add-facts', async (req, res) => {
         res.status(500).json({ error: err.message || 'Internal Server Error' });
     }
 });
+
+
+
+router.post('/speakup', async (req, res) => {
+    try {
+      if (!req.user) {
+        return res.status(401).json({ error: 'Unauthorized: User not logged in' });
+      }
+      console.log("Received request body:", req.body); 
+      const newTalk = await SpeakEntity.create({
+        user: req.user.username, 
+        info: req.body.info
+      });
+      res.status(201).json(newTalk);
+    } catch (err) {
+      console.error('Error adding talk:', err);
+      res.status(500).json({ error: err.message || 'Internal Server Error' });
+    }
+  });
+  
+
 
 
 router.post('/signup', async (req, res) => {
