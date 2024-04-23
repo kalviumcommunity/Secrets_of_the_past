@@ -3,9 +3,16 @@ import { Link, useLocation } from "react-router-dom";
 
 function Navbar() {
   const [sticky, setSticky] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [username, setUsername] = useState('');
   const location = useLocation();
 
   useEffect(() => {
+    const loggedIn = sessionStorage.getItem('login') === 'true';
+    setIsLoggedIn(loggedIn);
+    const storedUsername = sessionStorage.getItem('username');
+    setUsername(storedUsername || '');
+
     const handleScroll = () => {
       if (window.scrollY > 0) {
         setSticky(true);
@@ -18,6 +25,13 @@ function Navbar() {
       window.removeEventListener("scroll", handleScroll);
     };
   }, []);
+
+  const handleLogout = () => {
+    sessionStorage.removeItem('login');
+    sessionStorage.removeItem('username');
+    setIsLoggedIn(false);
+    window.location.href = '/login';
+  };
 
   const navItems = (
     <>
@@ -35,6 +49,9 @@ function Navbar() {
       </li>
       <li>
         <Link to="/images">Images</Link>
+      </li>
+      <li>
+        <Link to="/speakup">SpeakUp</Link>
       </li>
     </>
   );
@@ -107,7 +124,7 @@ function Navbar() {
                 </svg>
               </label>
             </div>
-            {isHomePage && (
+            {!isLoggedIn && (
               <div className="">
                 <Link
                   to="/login"
@@ -123,7 +140,7 @@ function Navbar() {
                 </Link>
               </div>
             )}
-            {isRealPage && (
+            {isLoggedIn && isRealPage && (
               <div className="">
                 <Link
                   to="/add-real"
@@ -133,7 +150,7 @@ function Navbar() {
                 </Link>
               </div>
             )}
-            {isFictionPage && (
+            {isLoggedIn && isFictionPage && (
               <div className="">
                 <Link
                   to="/add-fictional"
@@ -143,7 +160,7 @@ function Navbar() {
                 </Link>
               </div>
             )}
-            {isImagePage && (
+            {isLoggedIn && isImagePage && (
               <div className="">
                 <Link
                   to="/add-images"
@@ -153,7 +170,7 @@ function Navbar() {
                 </Link>
               </div>
             )}
-            {isFactPage && (
+            {isLoggedIn && isFactPage && (
               <div className="">
                 <Link
                   to="/add-facts"
@@ -163,11 +180,23 @@ function Navbar() {
                 </Link>
               </div>
             )}
+            {isLoggedIn && (
+              <div className="flex items-center space-x-4">
+                <span className="text-white">{username}</span>
+                <button
+                  onClick={handleLogout}
+                  className="bg-red-500 text-white px-3 py-2 rounded-md hover:bg-slate-800 duration-300 cursor-pointer"
+                >
+                  Logout
+                </button>
+              </div>
+            )}
           </div>
         </div>
       </div>
     </>
   );
+  
 }
 
 export default Navbar;

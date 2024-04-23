@@ -2,18 +2,6 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
-function SubmitButton({ onClick, label }) {
-  return (
-    <button
-      type="submit"
-      onClick={onClick}
-      className="bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 focus:outline-none focus:bg-blue-600 transition duration-300 w-full"
-    >
-      {label}
-    </button>
-  );
-}
-
 function FactsForm() {
   const [formData, setFormData] = useState({
     title: '',
@@ -55,6 +43,16 @@ function FactsForm() {
     }
   };
 
+  const SubmitButton = () => (
+    <button
+      type="submit"
+      onClick={handleSubmit}
+      className="bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 focus:outline-none focus:bg-blue-600 transition duration-300 w-full"
+    >
+      Submit
+    </button>
+  );
+
   return (
     <div className='fictional-form-container flex justify-center items-center h-full mt-20'>
       <div className="w-full max-w-sm p-4 bg-white rounded-md shadow-md">
@@ -62,19 +60,8 @@ function FactsForm() {
         <form onSubmit={handleSubmit}>
           <input type="text" name="title" placeholder="Title" value={formData.title} onChange={handleChange} className="border border-gray-300 px-3 py-2 rounded-md mb-2 block w-full" />
           <textarea name="info" placeholder="Info" rows="3" value={formData.info} onChange={handleChange} className="border border-gray-300 px-3 py-2 rounded-md mb-2 block w-full"></textarea>
-          <SubmitButton onClick={handleSubmit} label="Submit" />
+          <SubmitButton />
         </form>
-      </div>
-      <div>
-        <h2 className="text-lg font-bold mb-4">Facts List</h2>
-        <ul>
-          {facts.map((fact) => (
-            <li key={fact.id}>
-              <div>Title: {fact.title}</div>
-              <div>Info: {fact.info}</div>
-            </li>
-          ))}
-        </ul>
       </div>
     </div>
   );
