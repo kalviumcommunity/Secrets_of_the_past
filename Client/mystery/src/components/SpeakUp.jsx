@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { Redirect } from 'react-router-dom';
 import axios from 'axios';
 
 function SpeakUp() {
@@ -10,10 +9,11 @@ function SpeakUp() {
     e.preventDefault();
     try {
       if (!isLoggedIn) {
-        return <Redirect to="/login" />;
+        console.error('User is not logged in');
+        return;
       }
       const response = await axios.post(
-        '/speakup',
+        'https://secrets-of-the-past-1.onrender.com/speakup',
         { info: message },
         { withCredentials: true }
       );
