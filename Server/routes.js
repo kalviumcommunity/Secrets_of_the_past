@@ -95,20 +95,25 @@ router.post('/add-facts', async (req, res) => {
 
 router.post('/speakup', async (req, res) => {
     try {
-      if (!req.user) {
-        return res.status(401).json({ error: 'Unauthorized: User not logged in' });
-      }
-      console.log("Received request body:", req.body); 
-      const newTalk = await SpeakEntity.create({
-        user: req.user.username, 
-        info: req.body.info
-      });
-      res.status(201).json(newTalk);
+        if (!req.user) {
+            return res.status(401).json({ error: 'Unauthorized: User not logged in' });
+        }
+
+        const { parentCommentId, message } = req.body;
+
+        const newComment = await SpeakEntity.create({
+            user: req.user._id, 
+            parentComment: parentCommentId,
+            message: message
+        });
+        
+        res.status(201).json(newComment);
     } catch (err) {
-      console.error('Error adding talk:', err);
-      res.status(500).json({ error: err.message || 'Internal Server Error' });
+        console.error('Error adding comment:', err);
+        res.status(500).json({ error: err.message || 'Internal Server Error' });
     }
-  });
+});
+
   
 
 
