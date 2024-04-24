@@ -1,46 +1,80 @@
-import React, { useState } from 'react';
+import { useState, useEffect } from 'react';
 import axios from 'axios';
 
 function SpeakUp() {
-  const [message, setMessage] = useState('');
-  const [isLoggedIn, setIsLoggedIn] = useState(sessionStorage.getItem('login') === 'true');
+    const [comments, setComments] = useState([]);
+    const [newComment, setNewComment] = useState('');
+    const [loading, setLoading] = useState(true);
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    try {
-      if (!isLoggedIn) {
-        console.error('User is not logged in');
-        return;
-      }
-      const response = await axios.post(
-        'https://secrets-of-the-past-1.onrender.com/speakup',
-        { info: message },
-        { withCredentials: true }
-      );
-      console.log('Message posted:', response.data);
-      setMessage('');
-    } catch (error) {
-      console.error('Error posting message:', error);
-    }
-  };
+    useEffect(() => {
+        
+        const userToken = localStorage.getItem('token');
+        if (userToken) {
+            setIsLoggedIn(true);
+        }
 
-  return (
-    <div>
-      <h2>SpeakUp</h2>
-      <form onSubmit={handleSubmit}>
-        <textarea
-          value={message}
-          onChange={(e) => setMessage(e.target.value)}
-          placeholder="Type your message here..."
-          rows={4}
-          cols={50}
-          required
-        />
-        <br />
-        <button type="submit">Post</button>
-      </form>
-    </div>
-  );
+        axios.get('https://secrets-of-the-past-2.onrender.com/speakup')
+            .then(response => {
+                setComments(response.data);
+                setLoading(false);
+            })
+            .catch(error => console.error('Error fetching comments:', error));
+    }, []);
+
+    const handleSubmit = () => {
+        if (!isLoggedIn) {
+            alert('Please log in to submit a comment.');
+            return;
+        }
+
+        axios.post('https://secrets-of-the-past-2.onrender.com/speakup', {
+            message: newComment
+        })
+        .then(response => {
+            setComments([...comments, response.data]);
+            setNewComment('');
+        })
+        .catch(error => console.error('Error adding comment:', error));
+    };
+
+    return (
+        <div>
+            <input 
+                type="text" 
+                placeholder="Type your comment here..." 
+                value={newComment} 
+                onChange={(e) => setNewComment(e.target.value)} 
+            />
+            <button onClick={handleSubmit}>Submit</button>
+
+            <div>
+                {loading ? (
+                    <p>Loading comments...</p>
+                ) : (
+                    <div>
+                        {comments.map(comment => (
+                            <div key={comment._id}>
+                                <p>{comment.message}</p>
+                                <input 
+                                    type="text" 
+                                    placeholder="Reply to this comment..." 
+                                    value={newComment} 
+                                    onChange={(e) => setNewComment(e.target.value)} 
+                                />
+                                <button onClick={handleSubmit}>Reply</button>
+                                {comment.replies.map(reply => (
+                                    <div key={reply._id}>
+                                        <p>{reply.message}</p>
+                                    </div>
+                                ))}
+                            </div>
+                        ))}
+                    </div>
+                )}
+            </div>
+        </div>
+    );
 }
 
 export default SpeakUp;

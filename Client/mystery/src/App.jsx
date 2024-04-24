@@ -12,7 +12,7 @@ import RealForm from './components/RealForm';
 import FictionForm from './components/FictionForm';
 import ImageForm from './components/ImageForm';
 import FactsForm from './components/FactsForm';
-import SpeakUp from './components/SpeakUp';
+import Speakback from './components/Speakback';
 
 function App() {
   const [loggedIn, setLoggedIn] = useState(sessionStorage.getItem('login') === 'true');
@@ -42,7 +42,7 @@ function App() {
         <Route path="/add-fictional" element={<FictionForm />} />
         <Route path="/add-images" element={<ImageForm />} />
         <Route path="/add-facts" element={<FactsForm />} />
-        <Route path="/speakup" element={<SpeakUp/>} />
+        <Route path="/speakup" element={<Speakback/>} />
       </Routes>
     </>
   );

@@ -3,12 +3,22 @@ const mongoose = require('mongoose');
 const SpeakSchema = new mongoose.Schema({
     user: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'User' 
+        ref: 'User',
+        required: true
     },
-    message: String,
+    parentComment: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Speak' 
+    },
+    message: {
+        type: String,
+        required: true,
+        maxlength: 2000 
+    },
     timestamp: {
         type: Date,
-        default: Date.now
+        default: Date.now,
+        index: true 
     }
 });
 
