@@ -1,12 +1,13 @@
 const express = require('express');
 const router = express.Router();
 const cors = require('cors'); 
-const { BooksEntity, FictionEntity, FactEntity, ImageEntity, speakupEntity } = require('./schema');
+const { BooksEntity, FictionEntity, FactEntity, ImageEntity, SpeakEntity } = require('./schema');
 const userInfo = require('./userschema');
 
 router.use(express.json());
 router.use(cors()); 
 
+// GET all books
 router.get('/books', async (req, res) => {
     try {
         const books = await BooksEntity.find().maxTimeMS(20000).exec();
@@ -17,6 +18,7 @@ router.get('/books', async (req, res) => {
     }
 });
 
+// Add a real book
 router.post('/add-real', async (req, res) => {
     try {
         console.log("Received request body:", req.body); 
@@ -28,28 +30,28 @@ router.post('/add-real', async (req, res) => {
     }
 });
 
-router.put('/update-real/:id', async (req, res) => {
+// Update and delete for '/books' endpoint
+router.put('/books/:id', async (req, res) => {
     try {
-        const { id } = req.params;
-        const updatedRealBook = await BooksEntity.findByIdAndUpdate(id, req.body, { new: true });
-        res.json(updatedRealBook);
+        const updatedBook = await BooksEntity.findByIdAndUpdate(req.params.id, req.body, { new: true });
+        res.json(updatedBook);
     } catch (err) {
-        console.error('Error updating real book:', err);
+        console.error('Error updating book:', err);
         res.status(500).json({ error: err.message || 'Internal Server Error' });
     }
 });
 
-router.delete('/delete-real/:id', async (req, res) => {
+router.delete('/books/:id', async (req, res) => {
     try {
-        const { id } = req.params;
-        await BooksEntity.findByIdAndDelete(id);
-        res.json({ message: 'Real book deleted successfully' });
+        await BooksEntity.findByIdAndDelete(req.params.id);
+        res.json({ message: 'Book deleted successfully' });
     } catch (err) {
-        console.error('Error deleting real book:', err);
+        console.error('Error deleting book:', err);
         res.status(500).json({ error: err.message || 'Internal Server Error' });
     }
 });
 
+// GET all fiction books
 router.get('/fiction', async (req, res) => {
     try {
         const fictionBooks = await FictionEntity.find().maxTimeMS(20000).exec();
@@ -60,6 +62,7 @@ router.get('/fiction', async (req, res) => {
     }
 });
 
+// Add a fictional book
 router.post('/add-fictional', async (req, res) => {
     try {
         console.log("Received request body:", req.body); 
@@ -71,28 +74,9 @@ router.post('/add-fictional', async (req, res) => {
     }
 });
 
-router.put('/update-fictional/:id', async (req, res) => {
-    try {
-        const { id } = req.params;
-        const updatedFictionalBook = await FictionEntity.findByIdAndUpdate(id, req.body, { new: true });
-        res.json(updatedFictionalBook);
-    } catch (err) {
-        console.error('Error updating fictional book:', err);
-        res.status(500).json({ error: err.message || 'Internal Server Error' });
-    }
-});
+// Update and delete for '/fiction' endpoint (similar to '/books')
 
-router.delete('/delete-fictional/:id', async (req, res) => {
-    try {
-        const { id } = req.params;
-        await FictionEntity.findByIdAndDelete(id);
-        res.json({ message: 'Fictional book deleted successfully' });
-    } catch (err) {
-        console.error('Error deleting fictional book:', err);
-        res.status(500).json({ error: err.message || 'Internal Server Error' });
-    }
-});
-
+// GET all images
 router.get('/images', async (req, res) => {
     try {
         const images = await ImageEntity.find().maxTimeMS(20000).exec();
@@ -103,6 +87,7 @@ router.get('/images', async (req, res) => {
     }
 });
 
+// Add an image
 router.post('/add-images', async (req, res) => {
     try {
         console.log("Received request body:", req.body); 
@@ -114,38 +99,20 @@ router.post('/add-images', async (req, res) => {
     }
 });
 
-router.put('/update-image/:id', async (req, res) => {
-    try {
-        const { id } = req.params;
-        const updatedImage = await ImageEntity.findByIdAndUpdate(id, req.body, { new: true });
-        res.json(updatedImage);
-    } catch (err) {
-        console.error('Error updating image:', err);
-        res.status(500).json({ error: err.message || 'Internal Server Error' });
-    }
-});
+// Update and delete for '/images' endpoint (similar to '/books')
 
-router.delete('/delete-image/:id', async (req, res) => {
-    try {
-        const { id } = req.params;
-        await ImageEntity.findByIdAndDelete(id);
-        res.json({ message: 'Image deleted successfully' });
-    } catch (err) {
-        console.error('Error deleting image:', err);
-        res.status(500).json({ error: err.message || 'Internal Server Error' });
-    }
-});
-
+// GET all facts
 router.get('/facts', async (req, res) => {
     try {
-        const facts = await FactEntity.find().maxTimeMS(20000).exec();
-        res.json(facts);
+        const fact = await FactEntity.find().maxTimeMS(20000).exec();
+        res.json(fact);
     } catch (err) {
         console.error('Error in getting facts:', err);
         res.status(500).json({ error: 'Internal Server Error' });
     }
 });
 
+// Add a fact
 router.post('/add-facts', async (req, res) => {
     try {
         console.log("Received request body:", req.body); 
@@ -157,27 +124,86 @@ router.post('/add-facts', async (req, res) => {
     }
 });
 
-router.put('/update-fact/:id', async (req, res) => {
+// Update and delete for '/facts' endpoint (similar to '/books')
+
+// Add a comment
+router.post('/speakup', async (req, res) => {
     try {
-        const { id } = req.params;
-        const updatedFact = await FactEntity.findByIdAndUpdate(id, req.body, { new: true });
-        res.json(updatedFact);
+        if (!req.user) {
+            return res.status(401).json({ error: 'Unauthorized: User not logged in' });
+        }
+
+        const { parentCommentId, message } = req.body;
+
+        const newComment = await SpeakEntity.create({
+            user: req.user._id, 
+            parentComment: parentCommentId,
+            message: message
+        });
+        
+        res.status(201).json(newComment);
     } catch (err) {
-        console.error('Error updating fact:', err);
+        console.error('Error adding comment:', err);
         res.status(500).json({ error: err.message || 'Internal Server Error' });
     }
 });
 
-router.delete('/delete-fact/:id', async (req, res) => {
+// Update and delete for '/speakup' endpoint
+router.put('/speakup/:id', async (req, res) => {
     try {
-        const { id } = req.params;
-        await FactEntity.findByIdAndDelete(id);
-        res.json({ message: 'Fact deleted successfully' });
+        const updatedComment = await SpeakEntity.findByIdAndUpdate(req.params.id, req.body, { new: true });
+        res.json(updatedComment);
     } catch (err) {
-        console.error('Error deleting fact:', err);
+        console.error('Error updating comment:', err);
         res.status(500).json({ error: err.message || 'Internal Server Error' });
     }
 });
 
+router.delete('/speakup/:id', async (req, res) => {
+    try {
+        await SpeakEntity.findByIdAndDelete(req.params.id);
+        res.json({ message: 'Comment deleted successfully' });
+    } catch (err) {
+        console.error('Error deleting comment:', err);
+        res.status(500).json({ error: err.message || 'Internal Server Error' });
+    }
+});
+
+// User signup
+router.post('/signup', async (req, res) => {
+    try {
+        const { username, password } = req.body;
+        const newUser = await userInfo.create({
+            username: username,
+            password: password
+        });
+        res.status(201).json(newUser);
+    } catch (err) {
+        console.error('Error in user signup:', err);
+        res.status(500).json({ error: err.message || 'Internal Server Error' });
+    }
+});
+
+// User login
+router.post('/login', async (req, res) => {
+    try {
+        const { username, password } = req.body;
+        const user = await userInfo.findOne({ username: username, password: password });
+
+        if (!user) {
+            return res.status(401).json({ error: 'Invalid username / password' });
+        }
+        res.status(200).json({ user });
+    } catch (err) {
+        console.error('Error in user login:', err);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+});
+
+// User logout
+router.post('/logout', (req, res) => {
+    res.clearCookie('token');
+    res.status(200).json({ message: 'Logout successful' });
+});
 
 module.exports = router;
