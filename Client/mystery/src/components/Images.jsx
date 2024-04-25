@@ -1,8 +1,11 @@
-import  { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
+import { Navigate } from 'react-router-dom'; 
+import { useNavigate } from 'react-router-dom'; 
 
 function Images() {
   const [images, setImages] = useState([]);
   const [error, setError] = useState(null);
+  const navigate = useNavigate(); 
 
   useEffect(() => {
     fetch('https://secrets-of-the-past-1.onrender.com/images')
@@ -19,6 +22,21 @@ function Images() {
       });
   }, []);
 
+  const handleDelete = async (id) => {
+    try {
+      await fetch(`https://secrets-of-the-past-1.onrender.com/delete-image/${id}`, {
+        method: 'DELETE',
+      });
+      setImages(prevImages => prevImages.filter(image => image._id !== id));
+    } catch (error) {
+      console.error('Error deleting image:', error);
+    }
+  };
+
+  const handleUpdate = (id) => {
+    return <Navigate to={`/update-image/${id}`} replace />;
+  };
+
   return (
     <div className='max-w-screen-2xl container mx-auto md:px-20 px-4'>
       <div className='mt-28 items-center justify-center text-center'>
@@ -28,11 +46,15 @@ function Images() {
           <>
             <p className='mt-7 pb-7'>All the images below are not normal images; there is something mysterious about them. They may appear simple at first, but the descriptions will guide you to see how mysterious they are.</p>
             <ul className='grid grid-cols-1 md:grid-cols-1 gap-10'>
-              {images.map(({ name, image, description }, index) => (
-                <li key={index} className='flex flex-col items-center'>
+              {images.map(({ _id, name, image, description }) => (
+                <li key={_id} className='flex flex-col items-center'>
                   <h2 className='mt-3 text-xl'>{name}</h2>
                   <img src={image} alt={name} style={{ width: '600px', height: '500px' }} />
                   <p className='mt-1 text-white-600 pt-5 flex'>{description}</p>
+                  <div className="flex mt-3">
+                    <button onClick={() => handleUpdate(_id)}>Update</button>
+                    <button onClick={() => handleDelete(_id)}>Delete</button>
+                  </div>
                 </li>
               ))}
             </ul>
