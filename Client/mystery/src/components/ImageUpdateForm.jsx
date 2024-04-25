@@ -8,14 +8,19 @@ function ImageUpdateForm() {
     image: '',
     description: '',
   });
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
   const { id } = useParams(); 
   const navigate = useNavigate();
 
   useEffect(() => {
-    
+    let source = axios.CancelToken.source();
+
     async function fetchImageData() {
       try {
-        const response = await axios.get(`https://secrets-of-the-past-1.onrender.com/images/${id}`);
+        const response = await axios.get(`https://secrets-of-the-past-1.onrender.com/images/${id}`, {
+          cancelToken: source.token
+        });
         const imageData = response.data;
         
         setFormData({
@@ -23,12 +28,24 @@ function ImageUpdateForm() {
           image: imageData.image,
           description: imageData.description,
         });
+        setLoading(false);
       } catch (error) {
-        console.error('Error fetching image data:', error);
+        if (axios.isCancel(error)) {
+          console.log('Request canceled:', error.message);
+        } else {
+          setError('Error fetching image data. Please try again later.');
+          setLoading(false);
+        }
       }
     }
+
     fetchImageData();
+
+    return () => {
+      source.cancel('Component unmounted');
+    };
   }, [id]); 
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({
@@ -41,9 +58,9 @@ function ImageUpdateForm() {
     e.preventDefault();
     try {
       await axios.put(`https://secrets-of-the-past-1.onrender.com/update-image/${id}`, formData);
-      navigate('/images');
+      navigate('/images'); 
     } catch (error) {
-      console.error('Error updating image:', error);
+      setError('Error updating image. Please try again later.');
     }
   };
 
@@ -51,13 +68,18 @@ function ImageUpdateForm() {
     <div className="image-form-container flex justify-center items-center h-full mt-20">
       <div className="w-full max-w-sm p-4 bg-white rounded-md shadow-md">
         <h1 className="text-lg font-bold mb-4 text-black">Update Image</h1>
-        <form onSubmit={handleSubmit}>
-          <input type="text" name="name" placeholder="Image Name" value={formData.name} onChange={handleChange} className="border border-gray-300 px-3 py-2 rounded-md mb-2 block w-full" />
-          <input type="url" name="image" placeholder="Image URL" value={formData.image} onChange={handleChange} className="border border-gray-300 px-3 py-2 rounded-md mb-2 block w-full" />
-          <textarea name="description" placeholder="Description" rows="3" value={formData.description} onChange={handleChange} className="border border-gray-300 px-3 py-2 rounded-md mb-2 block w-full"></textarea>
-          <button type="submit" className="bg-green-500 text-white py-2 px-4 rounded-md hover:bg-green-600 focus:outline-none focus:bg-green-600 transition duration-300 w-full">Update</button>
-
-        </form>
+        {loading ? (
+          <p>Loading...</p>
+        ) : error ? (
+          <p className="text-red-500">{error}</p>
+        ) : (
+          <form onSubmit={handleSubmit}>
+            <input type="text" name="name" placeholder="Image Name" value={formData.name} onChange={handleChange} className="border border-gray-300 px-3 py-2 rounded-md mb-2 block w-full" />
+            <input type="url" name="image" placeholder="Image URL" value={formData.image} onChange={handleChange} className="border border-gray-300 px-3 py-2 rounded-md mb-2 block w-full" />
+            <textarea name="description" placeholder="Description" rows="3" value={formData.description} onChange={handleChange} className="border border-gray-300 px-3 py-2 rounded-md mb-2 block w-full"></textarea>
+            <button type="submit" className="bg-green-500 text-white py-2 px-4 rounded-md hover:bg-green-600 focus:outline-none focus:bg-green-600 transition duration-300 w-full">Update</button>
+          </form>
+        )}
       </div>
     </div>
   );
