@@ -119,7 +119,7 @@ router.post('/add-images', async (req, res) => {
 });
 
 // Update and delete for '/images' endpoint
-router.put('/images/:id', async (req, res) => {
+router.put('/update-image/:id', async (req, res) => {
     try {
         const updatedImage = await ImageEntity.findByIdAndUpdate(req.params.id, req.body, { new: true });
         res.json(updatedImage);
@@ -128,6 +128,7 @@ router.put('/images/:id', async (req, res) => {
         res.status(500).json({ error: err.message || 'Internal Server Error' });
     }
 });
+
 
 router.delete('/images/:id', async (req, res) => {
     try {
