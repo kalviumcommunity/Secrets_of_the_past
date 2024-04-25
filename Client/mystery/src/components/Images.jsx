@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { Navigate } from 'react-router-dom'; 
-import { useNavigate } from 'react-router-dom'; 
+import { useNavigate } from 'react-router-dom';
 
 function Images() {
   const [images, setImages] = useState([]);
   const [error, setError] = useState(null);
-  const navigate = useNavigate(); 
+  const [updatingId, setUpdatingId] = useState(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     fetch('https://secrets-of-the-past-1.onrender.com/images')
@@ -34,8 +34,13 @@ function Images() {
   };
 
   const handleUpdate = (id) => {
-    return <Navigate to={`image/${id}`} replace />;
+    setUpdatingId(id);
+    navigate(`/update-image/${id}`);
   };
+
+  if (updatingId) {
+    return null; 
+  }
 
   return (
     <div className='max-w-screen-2xl container mx-auto md:px-20 px-4'>

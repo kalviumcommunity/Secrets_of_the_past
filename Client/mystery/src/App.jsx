@@ -44,7 +44,8 @@ function App() {
         <Route path="/add-images" element={<ImageForm />} />
         <Route path="/add-facts" element={<FactsForm />} />
         <Route path="/speakup" element={<Speakback/>} />
-        <Route path="/images/:id" element={<ImageUpdateForm/>} />
+        <Route path="/update-image/:id" element={<ImageUpdateForm />} />
+
 
       </Routes>
     </>
