@@ -13,6 +13,7 @@ import FictionForm from './components/FictionForm';
 import ImageForm from './components/ImageForm';
 import FactsForm from './components/FactsForm';
 import Speakback from './components/Speakback';
+import ImageUpdateForm from './components/ImageUpdateForm';
 
 function App() {
   const [loggedIn, setLoggedIn] = useState(sessionStorage.getItem('login') === 'true');
@@ -43,6 +44,8 @@ function App() {
         <Route path="/add-images" element={<ImageForm />} />
         <Route path="/add-facts" element={<FactsForm />} />
         <Route path="/speakup" element={<Speakback/>} />
+        <Route path="/images/:id" element={<ImageUpdateForm/>} />
+
       </Routes>
     </>
   );

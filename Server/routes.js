@@ -74,7 +74,26 @@ router.post('/add-fictional', async (req, res) => {
     }
 });
 
-// Update and delete for '/fiction' endpoint (similar to '/books')
+// Update and delete for '/fiction' endpoint
+router.put('/fiction/:id', async (req, res) => {
+    try {
+        const updatedFiction = await FictionEntity.findByIdAndUpdate(req.params.id, req.body, { new: true });
+        res.json(updatedFiction);
+    } catch (err) {
+        console.error('Error updating fiction:', err);
+        res.status(500).json({ error: err.message || 'Internal Server Error' });
+    }
+});
+
+router.delete('/fiction/:id', async (req, res) => {
+    try {
+        await FictionEntity.findByIdAndDelete(req.params.id);
+        res.json({ message: 'Fiction book deleted successfully' });
+    } catch (err) {
+        console.error('Error deleting fiction book:', err);
+        res.status(500).json({ error: err.message || 'Internal Server Error' });
+    }
+});
 
 // GET all images
 router.get('/images', async (req, res) => {
@@ -99,13 +118,33 @@ router.post('/add-images', async (req, res) => {
     }
 });
 
-// Update and delete for '/images' endpoint (similar to '/books')
+// Update and delete for '/images' endpoint
+router.put('/update-image/:id', async (req, res) => {
+    try {
+        const updatedImage = await ImageEntity.findByIdAndUpdate(req.params.id, req.body, { new: true });
+        res.json(updatedImage);
+    } catch (err) {
+        console.error('Error updating image:', err);
+        res.status(500).json({ error: err.message || 'Internal Server Error' });
+    }
+});
+
+
+router.delete('/images/:id', async (req, res) => {
+    try {
+        await ImageEntity.findByIdAndDelete(req.params.id);
+        res.json({ message: 'Image deleted successfully' });
+    } catch (err) {
+        console.error('Error deleting image:', err);
+        res.status(500).json({ error: err.message || 'Internal Server Error' });
+    }
+});
 
 // GET all facts
 router.get('/facts', async (req, res) => {
     try {
-        const fact = await FactEntity.find().maxTimeMS(20000).exec();
-        res.json(fact);
+        const facts = await FactEntity.find().maxTimeMS(20000).exec();
+        res.json(facts);
     } catch (err) {
         console.error('Error in getting facts:', err);
         res.status(500).json({ error: 'Internal Server Error' });
@@ -119,12 +158,31 @@ router.post('/add-facts', async (req, res) => {
         const newFact = await FactEntity.create(req.body);
         res.status(201).json(newFact);
     } catch (err) {
-        console.error('Error adding fact book:', err);
+        console.error('Error adding fact:', err);
         res.status(500).json({ error: err.message || 'Internal Server Error' });
     }
 });
 
-// Update and delete for '/facts' endpoint (similar to '/books')
+// Update and delete for '/facts' endpoint
+router.put('/facts/:id', async (req, res) => {
+    try {
+        const updatedFact = await FactEntity.findByIdAndUpdate(req.params.id, req.body, { new: true });
+        res.json(updatedFact);
+    } catch (err) {
+        console.error('Error updating fact:', err);
+        res.status(500).json({ error: err.message || 'Internal Server Error' });
+    }
+});
+
+router.delete('/facts/:id', async (req, res) => {
+    try {
+        await FactEntity.findByIdAndDelete(req.params.id);
+        res.json({ message: 'Fact deleted successfully' });
+    } catch (err) {
+        console.error('Error deleting fact:', err);
+        res.status(500).json({ error: err.message || 'Internal Server Error' });
+    }
+});
 
 // Add a comment
 router.post('/speakup', async (req, res) => {

@@ -34,7 +34,7 @@ function Images() {
   };
 
   const handleUpdate = (id) => {
-    return <Navigate to={`/update-image/${id}`} replace />;
+    return <Navigate to={`image/${id}`} replace />;
   };
 
   return (
