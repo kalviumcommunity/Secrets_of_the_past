@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const cors = require('cors'); 
-const { BooksEntity, FictionEntity, FactEntity, ImageEntity, SpeakEntity } = require('./schema');
+const { BooksEntity, FictionEntity, FactEntity, ImageEntity, speakupEntity } = require('./schema');
 const userInfo = require('./userschema');
 
 router.use(express.json());
@@ -28,6 +28,28 @@ router.post('/add-real', async (req, res) => {
     }
 });
 
+router.put('/update-real/:id', async (req, res) => {
+    try {
+        const { id } = req.params;
+        const updatedRealBook = await BooksEntity.findByIdAndUpdate(id, req.body, { new: true });
+        res.json(updatedRealBook);
+    } catch (err) {
+        console.error('Error updating real book:', err);
+        res.status(500).json({ error: err.message || 'Internal Server Error' });
+    }
+});
+
+router.delete('/delete-real/:id', async (req, res) => {
+    try {
+        const { id } = req.params;
+        await BooksEntity.findByIdAndDelete(id);
+        res.json({ message: 'Real book deleted successfully' });
+    } catch (err) {
+        console.error('Error deleting real book:', err);
+        res.status(500).json({ error: err.message || 'Internal Server Error' });
+    }
+});
+
 router.get('/fiction', async (req, res) => {
     try {
         const fictionBooks = await FictionEntity.find().maxTimeMS(20000).exec();
@@ -45,6 +67,28 @@ router.post('/add-fictional', async (req, res) => {
         res.status(201).json(newFictionBook);
     } catch (err) {
         console.error('Error adding fictional book:', err);
+        res.status(500).json({ error: err.message || 'Internal Server Error' });
+    }
+});
+
+router.put('/update-fictional/:id', async (req, res) => {
+    try {
+        const { id } = req.params;
+        const updatedFictionalBook = await FictionEntity.findByIdAndUpdate(id, req.body, { new: true });
+        res.json(updatedFictionalBook);
+    } catch (err) {
+        console.error('Error updating fictional book:', err);
+        res.status(500).json({ error: err.message || 'Internal Server Error' });
+    }
+});
+
+router.delete('/delete-fictional/:id', async (req, res) => {
+    try {
+        const { id } = req.params;
+        await FictionEntity.findByIdAndDelete(id);
+        res.json({ message: 'Fictional book deleted successfully' });
+    } catch (err) {
+        console.error('Error deleting fictional book:', err);
         res.status(500).json({ error: err.message || 'Internal Server Error' });
     }
 });
@@ -70,10 +114,32 @@ router.post('/add-images', async (req, res) => {
     }
 });
 
+router.put('/update-image/:id', async (req, res) => {
+    try {
+        const { id } = req.params;
+        const updatedImage = await ImageEntity.findByIdAndUpdate(id, req.body, { new: true });
+        res.json(updatedImage);
+    } catch (err) {
+        console.error('Error updating image:', err);
+        res.status(500).json({ error: err.message || 'Internal Server Error' });
+    }
+});
+
+router.delete('/delete-image/:id', async (req, res) => {
+    try {
+        const { id } = req.params;
+        await ImageEntity.findByIdAndDelete(id);
+        res.json({ message: 'Image deleted successfully' });
+    } catch (err) {
+        console.error('Error deleting image:', err);
+        res.status(500).json({ error: err.message || 'Internal Server Error' });
+    }
+});
+
 router.get('/facts', async (req, res) => {
     try {
-        const fact = await FactEntity.find().maxTimeMS(20000).exec();
-        res.json(fact);
+        const facts = await FactEntity.find().maxTimeMS(20000).exec();
+        res.json(facts);
     } catch (err) {
         console.error('Error in getting facts:', err);
         res.status(500).json({ error: 'Internal Server Error' });
@@ -91,65 +157,27 @@ router.post('/add-facts', async (req, res) => {
     }
 });
 
-
-
-router.post('/speakup', async (req, res) => {
+router.put('/update-fact/:id', async (req, res) => {
     try {
-        if (!req.user) {
-            return res.status(401).json({ error: 'Unauthorized: User not logged in' });
-        }
-
-        const { parentCommentId, message } = req.body;
-
-        const newComment = await SpeakEntity.create({
-            user: req.user._id, 
-            parentComment: parentCommentId,
-            message: message
-        });
-        
-        res.status(201).json(newComment);
+        const { id } = req.params;
+        const updatedFact = await FactEntity.findByIdAndUpdate(id, req.body, { new: true });
+        res.json(updatedFact);
     } catch (err) {
-        console.error('Error adding comment:', err);
+        console.error('Error updating fact:', err);
         res.status(500).json({ error: err.message || 'Internal Server Error' });
     }
 });
 
-  
-
-
-
-router.post('/signup', async (req, res) => {
+router.delete('/delete-fact/:id', async (req, res) => {
     try {
-        const { username, password } = req.body;
-        const newUser = await userInfo.create({
-            username: username,
-            password: password
-        });
-        res.status(201).json(newUser);
+        const { id } = req.params;
+        await FactEntity.findByIdAndDelete(id);
+        res.json({ message: 'Fact deleted successfully' });
     } catch (err) {
-        console.error('Error in user signup:', err);
+        console.error('Error deleting fact:', err);
         res.status(500).json({ error: err.message || 'Internal Server Error' });
     }
 });
 
-router.post('/login', async (req, res) => {
-    try {
-        const { username, password } = req.body;
-        const user = await userInfo.findOne({ username: username, password: password });
-
-        if (!user) {
-            return res.status(401).json({ error: 'Invalid username / password' });
-        }
-        res.status(200).json({ user });
-    } catch (err) {
-        console.error('Error in user login:', err);
-        res.status(500).json({ error: 'Internal Server Error' });
-    }
-});
-
-router.post('/logout', (req, res) => {
-    res.clearCookie('token');
-    res.status(200).json({ message: 'Logout successful' });
-});
 
 module.exports = router;

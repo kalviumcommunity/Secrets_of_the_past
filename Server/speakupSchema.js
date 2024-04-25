@@ -1,27 +1,12 @@
 const mongoose = require('mongoose');
 
-const SpeakSchema = new mongoose.Schema({
-    user: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'User',
-        required: true
-    },
-    parentComment: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Speak' 
-    },
-    message: {
-        type: String,
-        required: true,
-        maxlength: 2000 
-    },
-    timestamp: {
-        type: Date,
-        default: Date.now,
-        index: true 
-    }
+const speakupSchema = new mongoose.Schema({
+    
+        info: String
+       
+    
 });
 
-const SpeakEntity = mongoose.model('Speak', SpeakSchema);
+const speakupEntity = mongoose.model('speakup-collections', speakupSchema);
 
-module.exports = SpeakEntity;
+module.exports = speakupEntity;
