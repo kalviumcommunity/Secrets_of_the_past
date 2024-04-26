@@ -129,8 +129,19 @@ router.put('/update-image/:id', async (req, res) => {
     }
 });
 
+router.get('/images/:id', async (req, res, next) => {
+    try {
+        const entity = await ImageEntity.findById(req.params.id);
+        if (!entity) {
+            return res.status(404).json({ error: 'Entity not found' });
+        }
+        res.send(entity);
+    } catch (err) {
+        next(err);
+    }
+});
 
-router.delete('/images/:id', async (req, res) => {
+router.delete('/delete-images/:id', async (req, res) => {
     try {
         await ImageEntity.findByIdAndDelete(req.params.id);
         res.json({ message: 'Image deleted successfully' });
