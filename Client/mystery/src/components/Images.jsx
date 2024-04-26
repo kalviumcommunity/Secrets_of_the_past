@@ -24,7 +24,7 @@ function Images() {
 
   const handleDelete = async (id) => {
     try {
-      await fetch(`https://secrets-of-the-past-1.onrender.com/images/${id}`, {
+      await fetch(`https://secrets-of-the-past-1.onrender.com/delete-images/${id}`, {
         method: 'DELETE',
       });
       setImages(prevImages => prevImages.filter(image => image._id !== id));
