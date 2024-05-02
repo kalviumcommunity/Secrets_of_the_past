@@ -54,7 +54,10 @@ function FactsForm() {
   );
 
   return (
+    
     <div className='fictional-form-container flex justify-center items-center h-full mt-20'>
+      
+
       <div className="w-full max-w-sm p-4 bg-white rounded-md shadow-md">
         <h1 className="text-lg font-bold mb-4">Add Facts</h1>
         <form onSubmit={handleSubmit}>
