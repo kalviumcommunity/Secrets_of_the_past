@@ -31,7 +31,7 @@ router.post('/add-real', async (req, res) => {
 });
 
 // Update and delete for '/books' endpoint
-router.put('/books/:id', async (req, res) => {
+router.put('/booksupdate/:id', async (req, res) => {
     try {
         const updatedBook = await BooksEntity.findByIdAndUpdate(req.params.id, req.body, { new: true });
         res.json(updatedBook);
@@ -41,7 +41,7 @@ router.put('/books/:id', async (req, res) => {
     }
 });
 
-router.delete('/books/:id', async (req, res) => {
+router.delete('/books-delete/:id', async (req, res) => {
     try {
         await BooksEntity.findByIdAndDelete(req.params.id);
         res.json({ message: 'Book deleted successfully' });
@@ -75,7 +75,7 @@ router.post('/add-fictional', async (req, res) => {
 });
 
 // Update and delete for '/fiction' endpoint
-router.put('/fiction/:id', async (req, res) => {
+router.put('/fictionupdate/:id', async (req, res) => {
     try {
         const updatedFiction = await FictionEntity.findByIdAndUpdate(req.params.id, req.body, { new: true });
         res.json(updatedFiction);
@@ -85,7 +85,7 @@ router.put('/fiction/:id', async (req, res) => {
     }
 });
 
-router.delete('/fiction/:id', async (req, res) => {
+router.delete('/fiction-delete/:id', async (req, res) => {
     try {
         await FictionEntity.findByIdAndDelete(req.params.id);
         res.json({ message: 'Fiction book deleted successfully' });
@@ -175,7 +175,7 @@ router.post('/add-facts', async (req, res) => {
 });
 
 // Update and delete for '/facts' endpoint
-router.put('/facts/:id', async (req, res) => {
+router.put('/factsupdate/:id', async (req, res) => {
     try {
         const updatedFact = await FactEntity.findByIdAndUpdate(req.params.id, req.body, { new: true });
         res.json(updatedFact);
@@ -185,7 +185,7 @@ router.put('/facts/:id', async (req, res) => {
     }
 });
 
-router.delete('/facts/:id', async (req, res) => {
+router.delete('/facts-delete/:id', async (req, res) => {
     try {
         await FactEntity.findByIdAndDelete(req.params.id);
         res.json({ message: 'Fact deleted successfully' });
@@ -218,7 +218,7 @@ router.post('/speakup', async (req, res) => {
 });
 
 // Update and delete for '/speakup' endpoint
-router.put('/speakup/:id', async (req, res) => {
+router.put('/speakupupdate/:id', async (req, res) => {
     try {
         const updatedComment = await SpeakEntity.findByIdAndUpdate(req.params.id, req.body, { new: true });
         res.json(updatedComment);
@@ -228,7 +228,7 @@ router.put('/speakup/:id', async (req, res) => {
     }
 });
 
-router.delete('/speakup/:id', async (req, res) => {
+router.delete('/speakup-delete/:id', async (req, res) => {
     try {
         await SpeakEntity.findByIdAndDelete(req.params.id);
         res.json({ message: 'Comment deleted successfully' });
