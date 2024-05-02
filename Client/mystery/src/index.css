@@ -9,8 +9,7 @@ body{
     color: aliceblue;
     background-image: url('https://media.istockphoto.com/id/1304681590/photo/product-showcase-with-spotlight-black-studio-room-background-use-as-montage-for-product.webp?b=1&s=170667a&w=0&k=20&c=svZfr5ALV7Veu6RwCQNHThg6xori_recC94JEIJMbEk=');
     background-repeat: no-repeat;
-    background-size: cover;
-       
+    background-size: cover;    
 }
 
 .color{
@@ -19,18 +18,18 @@ body{
     border-bottom-right-radius: 15px;
     border-bottom-left-radius: 2px;
     background-color: rgb(9, 3, 0);
-
-
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
 }
+
 .card-body{
     background-color: rgb(9, 3, 0);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
 }
-
 
 .blur {
     filter: blur(1.5px); 
 }
-  
+
 .signup-image {
     mask-image: radial-gradient(circle at top left, transparent 20%, black 60%);
     -webkit-mask-image: radial-gradient(circle at top left, transparent 20%, black 100%);
@@ -44,4 +43,79 @@ body{
     margin-top: 10rem;
 }
 
+.custom-accordion {
+  background: #8A6552;
+  color: #FFFFFF;
+  font-family: 'Sunflower', sans-serif;
+  padding-bottom: 2rem;
+}
 
+.custom-accordion .item {
+  padding: 1rem 2rem;
+  margin: 0 auto;
+  max-width: 30rem;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+.custom-accordion .item:last-of-type {
+  background: #462521;
+  text-align: center;
+  border-radius: .5rem;
+}
+
+.custom-accordion .item .icon {
+  color: #462521;
+  font-size: 2rem;
+}
+
+.custom-accordion .item .title {
+  font-size: 1.5rem;
+}
+
+.custom-accordion .content {
+  display: none;
+}
+
+.custom-accordion .item:hover .content {
+  display: block;
+}
+
+@media screen and (min-width: 800px) and (min-height: 270px) {
+  .custom-accordion {
+      display: table;
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
+      height: 50vh;
+      max-height: 500px;
+      overflow: hidden;
+      padding-bottom: 0;
+  }
+
+  .custom-accordion .item {
+      display: table-cell;
+      position: relative;
+      height: 100%;
+      padding: 2rem 1rem;
+      text-align: center;
+      transform-origin: 0 50%;
+      transition: all .3s cubic-bezier(.8,.16,.42,.89);
+  }
+}
+
+@media screen and (max-width: 800px) {
+  .custom-accordion .item {
+    display: block;
+    max-width: 100%;
+    padding: 1rem;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    margin-bottom: 1rem;
+  }
+
+  .custom-accordion .item:last-of-type {
+    width: 100%;
+    border-radius: 0;
+    margin-top: 1rem;
+    box-shadow: none; 
+  }
+}
