@@ -2,27 +2,15 @@ import React from 'react';
 
 function Cards({ item }) {
   return (
-    <>
-   <div className="partition">
-    
-      <div className='mt-10'> 
-        <div className="card w-96 bg-base-100 shadow-xl">
-          <a href={item.pdf} target="_blank" rel="noopener noreferrer"> 
-            <figure className='color'><img src={item.image} alt="Book Cover" /></figure> 
-          </a>
-          <div className="card-body">
-            <h2 className="card-title">
-              {item.title}
-              <div className="badge badge-secondary">{item.category}</div>
-            </h2>
-            <p>{item.name}</p>
-            <div className="card-actions justify-end">
-            </div>
-          </div>
-        </div>
+    <div className="card-container">
+      <div className="card">
+        <img src={item.image} alt={item.title} className="card-image" />
+        <div className="card-content">
+          <h3>{item.title}</h3>
+          <p>{item.author}</p>
         </div>
       </div>
-    </>
+    </div>
   );
 }
 

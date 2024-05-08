@@ -1,45 +1,69 @@
-import React, { useState } from 'react';
+import React from 'react'
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+import Slider from "react-slick";
+import list from "../../public/List.json"
+import Cards from "./Cards"
 
 function Books() {
-  const [activeItem, setActiveItem] = useState(null);
-
-  const toggleItem = (index) => {
-    setActiveItem(activeItem === index ? null : index);
+  const filterData=list.filter((data)=>data.category === "Read");
+  console.log(filterData)
+  var settings = {
+    dots: true,
+    infinite: false,
+    speed: 500,
+    slidesToShow: 4,
+    slidesToScroll: 4,
+    initialSlide: 0,
+    responsive: [
+      {
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: 3,
+          slidesToScroll: 3,
+          infinite: true,
+          dots: true
+        }
+      },
+      {
+        breakpoint: 600,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 2,
+          initialSlide: 2
+        }
+      },
+      {
+        breakpoint: 480,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1
+        }
+      }
+    ]
   };
-
   return (
-    <div className="max-w-screen-2xl container mx-auto md:px-20 px-4">
-      <div className="custom-accordion">
-        {[...Array(7)].map((_, index) => (
-          <div
-            className={`item ${activeItem === index ? 'active' : ''}`}
-            key={index}
-            onClick={() => toggleItem(index)}
-          >
-            <div>
-              <div className="icon">{index + 1}</div>
-              <div className="title">
-                <div className="text">Title {index + 1}</div>
-              </div>
-              <div className="content">
-                {activeItem === index && (
-                  <div>
-                    {index === 0 && "Content for item 1. This is the content for the first item."}
-                    {index === 1 && "Content for item 2. This is the content for the second item."}
-                    {index === 2 && "Content for item 3. This is the content for the third item."}
-                    {index === 3 && "Content for item 4. This is the content for the fourth item."}
-                    {index === 4 && "Content for item 5. This is the content for the fifth item."}
-                    {index === 5 && "Content for item 6. This is the content for the sixth item."}
-                    {index === 6 && "Content for item 7. This is the content for the seventh item."}
-                  </div>
-                )}
-              </div>
-            </div>
-          </div>
+   <>
+   <div className='max-w-screen-2xl container mx-auto md:px-20 px-4 py-5'>
+    <div>
+    <h1 className='font-semibold text-xl pb-2 '>You might like</h1>
+    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. </p>
+    
+   </div>
+   <div>
+   <div className="slider-container">
+      <Slider {...settings}>
+        {filterData.map((item)=>(
+          <Cards item={item} key={item.id}/>
+
         ))}
-      </div>
+      </Slider>
     </div>
-  );
+    </div>
+    </div>
+   </>
+
+  )
 }
 
-export default Books;
+export default Books
