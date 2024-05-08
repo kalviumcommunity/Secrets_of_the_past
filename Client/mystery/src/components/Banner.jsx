@@ -1,6 +1,5 @@
 import { useEffect, useRef } from 'react';
 import banner from "../../public/Banner.jpeg";
-import gold from "../../public/gold.jpg";
 import Typed from 'typed.js';
 
 function Banner() {
@@ -22,13 +21,12 @@ function Banner() {
 
   return (
     <div className='bg-image'>
-      <div className='max-w-screen-3x-1 container mx-auto md:px-20 py-12 flex flex-col md:flex-row my-10'>
-        <div className='w-full order-2 md:order-1 md:w-1/2 mt-12 md:mt-30'>
+      <div className='max-w-screen-3x-1 container mx-auto md:px-20 py-24 flex flex-col md:flex-row my-10'> 
+        <div className='w-full order-2 md:order-1 md:w-1/2 mt-12 md:mt-20'> 
           <div className='space-y-10'>
             <h1 ref={typedRef} className='text-2xl font-bold'></h1>
             <p className='text-xl'>Sometimes truth lies. It's forced to do so as it's incomplete. That incorrect truth forces itself to lie and that lie now presents itself as the truth.</p>
           </div>
-          <img src={gold} className='w-55 h-60 pt-12 md:pl-7 blur' alt="gold-stroke" style={{ width: '100%', overflow: 'hidden', borderRadius: '10px', boxShadow: '0 0 10px rgba(0, 0, 0, 0.2)' }} />
         </div>
         <div className='order-1 w-full md:w-1/2 md:order-2'>
           <div style={{ overflow: 'hidden', borderRadius: '10px', boxShadow: '0 0 10px rgba(0, 0, 0, 0.2)' }}>
