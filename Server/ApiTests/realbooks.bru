@@ -1,0 +1,21 @@
+meta {
+  name: realbooks
+  type: http
+  seq: 1
+}
+
+get {
+  url: https://secrets-of-the-past-2.onrender.com/books
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "name": "Killers of the flower moon",
+    "author": "David Grann",
+    "description": "This gripping work of narrative non-fiction uncovers the chilling conspiracy behind the murders of members of the Osage Nation in 1920s Oklahoma. Through meticulous research and vivid storytelling, Grann exposes the corruption and prejudice that fueled these crimes and the birth of the FBI.",
+    "image": "https://www.bing.com/th?id=OIP.bUFbPRcXmYX0G41mYnpV0wHaLR&w=109&h=175&c=8&rs=1&qlt=70&o=6&dpr=1.5&pid=3.1&rm=2",
+    "pdf": "https://www.highlightcomputer.com/Killers%20of%20the%20Flower%20Moon_%20The%20Osage%20Murders%20and%20the%20Birth%20of%20the%20FBI.pdf"
+  }
+}
