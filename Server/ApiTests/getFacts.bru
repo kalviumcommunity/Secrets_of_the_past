@@ -1,0 +1,18 @@
+meta {
+  name: getFacts
+  type: http
+  seq: 8
+}
+
+get {
+  url: https://secrets-of-the-past-2.onrender.com/facts
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "title": "fact1",
+    "info": "read fact1 this is to add multiple facts for fact 1 too see if it works proplerly, responsively idf the data is lengthy and how it appears in multiple lines. , so this is again a dummy data"
+  }
+}
