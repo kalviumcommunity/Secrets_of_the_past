@@ -4,8 +4,8 @@ function Section() {
   return (
     <>
       <div className='max-w-screen-2xl container mx-auto md:px-20 px-4 py-5'>
-        <div className='section-container'>
-          <div className='content'>
+        <div className='section-container flex flex-col md:flex-row'>
+          <div className='content md:w-1/2'>
             <div className='text'>
               <h2>Your Thoughts</h2>
               <p>
@@ -16,26 +16,26 @@ function Section() {
                 story.
               </p>
             </div>
-            <div className='image'>
-              <img
-                src="https://th.bing.com/th/id/OIG1.guDZyD7oXgJZcRs5pAjV?w=270&h=270&c=6&r=0&o=5&dpr=1.5&pid=ImgGn"
-                alt="Mystery Image"
-              />
-            </div>
+          </div>
+          <div className='image md:w-1/2'>
+            <img
+              src="https://th.bing.com/th/id/OIG1.guDZyD7oXgJZcRs5pAjV?w=270&h=270&c=6&r=0&o=5&dpr=1.5&pid=ImgGn"
+              alt="Mystery Image"
+            />
           </div>
         </div>
       </div>
 
       {/* Second div with image on the left */}
       <div className='max-w-screen-2xl container mx-auto md:px-20 px-4 py-5'>
-        <div className='section-container'>
-          <div className='content'>
-            <div className='image'>
-              <img
-                src="https://th.bing.com/th/id/OIG2.Xhg3upHHY._mm64cggWe?w=270&h=270&c=6&r=0&o=5&dpr=1.5&pid=ImgGn"
-                alt="Mystery Image"
-              />
-            </div>
+        <div className='section-container flex flex-col md:flex-row'>
+          <div className='image md:w-1/2'>
+            <img
+              src="https://th.bing.com/th/id/OIG2.Xhg3upHHY._mm64cggWe?w=270&h=270&c=6&r=0&o=5&dpr=1.5&pid=ImgGn"
+              alt="Mystery Image"
+            />
+          </div>
+          <div className='content md:w-1/2'>
             <div className='text'>
               <h2>Your Thoughts</h2>
               <p>
@@ -49,7 +49,7 @@ function Section() {
           </div>
         </div>
       </div>
-      </>
+    </>
   );
 }
 

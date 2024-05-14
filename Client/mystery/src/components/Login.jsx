@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import login from "../../public/login.png";
+// import login from "../../public/login.png";
 
 import axios from 'axios';
 
@@ -55,7 +55,7 @@ function Login() {
   return (
     <div className="flex justify-center items-center h-screen">
       <div className="mr-8" style={{ maskImage: 'radial-gradient(circle at top left, transparent 20%, black 60%)', WebkitMaskImage: 'radial-gradient(circle at top left, transparent 20%, black 100%)' }}>
-        <img src={login} className='w-59 h-59 pt-12 md:pl-8' alt="home-book" style={{ width: '100%' }} />
+        {/* <img src={login} className='w-59 h-59 pt-12 md:pl-8' alt="home-book" style={{ width: '100%' }} /> */}
       </div>
       <div className="login-container w-full sm:w-2/3 md:w-1/2 lg:w-1/3 xl:w-1/4">
         <h2 className="text-center text-2xl font-bold mb-4">Login</h2>
