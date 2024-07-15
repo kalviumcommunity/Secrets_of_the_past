@@ -196,47 +196,47 @@ router.delete('/facts-delete/:id', async (req, res) => {
 });
 
 // Add a comment
-router.post('/speakup', async (req, res) => {
-    try {
-        if (!req.user) {
-            return res.status(401).json({ error: 'Unauthorized: User not logged in' });
-        }
+// router.post('/speakup', async (req, res) => {
+//     try {
+//         if (!req.user) {
+//             return res.status(401).json({ error: 'Unauthorized: User not logged in' });
+//         }
 
-        const { parentCommentId, message } = req.body;
+//         const { parentCommentId, message } = req.body;
 
-        const newComment = await SpeakEntity.create({
-            user: req.user._id, 
-            parentComment: parentCommentId,
-            message: message
-        });
+//         const newComment = await SpeakEntity.create({
+//             user: req.user._id, 
+//             parentComment: parentCommentId,
+//             message: message
+//         });
         
-        res.status(201).json(newComment);
-    } catch (err) {
-        console.error('Error adding comment:', err);
-        res.status(500).json({ error: err.message || 'Internal Server Error' });
-    }
-});
+//         res.status(201).json(newComment);
+//     } catch (err) {
+//         console.error('Error adding comment:', err);
+//         res.status(500).json({ error: err.message || 'Internal Server Error' });
+//     }
+// });
 
 // Update and delete for '/speakup' endpoint
-router.put('/speakupupdate/:id', async (req, res) => {
-    try {
-        const updatedComment = await SpeakEntity.findByIdAndUpdate(req.params.id, req.body, { new: true });
-        res.json(updatedComment);
-    } catch (err) {
-        console.error('Error updating comment:', err);
-        res.status(500).json({ error: err.message || 'Internal Server Error' });
-    }
-});
+// router.put('/speakupupdate/:id', async (req, res) => {
+//     try {
+//         const updatedComment = await SpeakEntity.findByIdAndUpdate(req.params.id, req.body, { new: true });
+//         res.json(updatedComment);
+//     } catch (err) {
+//         console.error('Error updating comment:', err);
+//         res.status(500).json({ error: err.message || 'Internal Server Error' });
+//     }
+// });
 
-router.delete('/speakup-delete/:id', async (req, res) => {
-    try {
-        await SpeakEntity.findByIdAndDelete(req.params.id);
-        res.json({ message: 'Comment deleted successfully' });
-    } catch (err) {
-        console.error('Error deleting comment:', err);
-        res.status(500).json({ error: err.message || 'Internal Server Error' });
-    }
-});
+// router.delete('/speakup-delete/:id', async (req, res) => {
+//     try {
+//         await SpeakEntity.findByIdAndDelete(req.params.id);
+//         res.json({ message: 'Comment deleted successfully' });
+//     } catch (err) {
+//         console.error('Error deleting comment:', err);
+//         res.status(500).json({ error: err.message || 'Internal Server Error' });
+//     }
+// });
 
 // User signup
 router.post('/signup', async (req, res) => {

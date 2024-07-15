@@ -58,8 +58,8 @@ function Images() {
                   <img src={image} alt={name} style={{ width: '600px', height: '500px' }} />
                   <p className='mt-1 text-white-600 pt-5 flex'>{description}</p>
                   <div className="flex mt-3">
-                    <button onClick={() => handleUpdate(_id)}>Update</button>
-                    <button onClick={() => handleDelete(_id)}>Delete</button>
+                    <button className='imgupdate' onClick={() => handleUpdate(_id)}>Update</button>
+                    <button className='imgdel' onClick={() => handleDelete(_id)}>Delete</button>
                   </div>
                 </li>
               ))}

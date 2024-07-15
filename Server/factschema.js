@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 
 const FactSchema = new mongoose.Schema({
+//  package.json
     
         title: String,
         info: String
