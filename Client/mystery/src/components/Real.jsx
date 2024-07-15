@@ -1,8 +1,11 @@
-import  { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom'; // Assuming you're using React Router
 
 function Real() {
   const [stories, setStories] = useState([]);
+  const [updatingId, setUpdatingId] = useState(null);
+  const navigate = useNavigate(); // Assuming you're using React Router
 
   useEffect(() => {
     const fetchData = async () => {
@@ -17,6 +20,19 @@ function Real() {
     fetchData();
   }, []);
 
+  const handleUpdate = (id) => {
+    setUpdatingId(id);
+    navigate(`/booksupdate/${id}`); 
+  };
+
+  const handleDelete = (id) => {
+    
+  };
+
+  if (updatingId) {
+    return null; 
+  }
+
   return (
     <div className='max-w-screen-2xl container mx-auto md:px-20 px-4'>
       <div className='mt-28 items-center justify-center text-center'>
@@ -30,6 +46,10 @@ function Real() {
                 <h2>{story.name}</h2>
                 <p className='md:pt-3 p-4'>{story.description}</p>
                 <a href={story.pdf} target="_blank" rel="noopener noreferrer">Read Book</a>
+              </div>
+              <div className="flex mt-3">
+                <button className='imgupdate' onClick={() => handleUpdate(story._id)}>Update</button>
+                <button className='imgdel' onClick={() => handleDelete(story._id)}>Delete</button>
               </div>
             </li>
           ))}

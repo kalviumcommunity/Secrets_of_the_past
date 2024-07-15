@@ -50,9 +50,9 @@ function Navbar() {
       <li>
         <Link to="/images">Images</Link>
       </li>
-      <li>
+      {/* <li>
         <Link to="/speakup">SpeakUp</Link>
-      </li>
+      </li> */}
     </>
   );
 

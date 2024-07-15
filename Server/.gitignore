@@ -1,3 +1,7 @@
 *node_modules/*
 .env
 package-lock.json
+# git rm -r --cached package-lock.json
+
+
+# rm package-lock.json

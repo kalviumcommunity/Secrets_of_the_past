@@ -1,12 +1,12 @@
-const mongoose = require('mongoose');
+// const mongoose = require('mongoose');
 
-const speakupSchema = new mongoose.Schema({
+// const speakupSchema = new mongoose.Schema({
     
-        info: String
+//         info: String
        
     
-});
+// });
 
-const speakupEntity = mongoose.model('speakup-collections', speakupSchema);
+// const speakupEntity = mongoose.model('speakup-collections', speakupSchema);
 
-module.exports = speakupEntity;
+// module.exports = speakupEntity;
