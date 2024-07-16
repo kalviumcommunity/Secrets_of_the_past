@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
-function RealUpdateForm() {
+function FictionUpdateForm() {
   const { id } = useParams();
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
@@ -15,7 +15,7 @@ function RealUpdateForm() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`https://secrets-of-the-past-2.onrender.com/books/${id}`);
+        const response = await axios.get(`https://secrets-of-the-past-2.onrender.com/fiction/${id}`);
         setFormData(response.data);
       } catch (error) {
         console.error('Error fetching data:', error);
@@ -36,13 +36,12 @@ function RealUpdateForm() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.put(`https://secrets-of-the-past-2.onrender.com/booksupdate/${id}`, formData);
-      navigate('/real');
+      await axios.put(`https://secrets-of-the-past-2.onrender.com/fictionupdate/${id}`, formData);
+      navigate('/fiction');
     } catch (error) {
       console.error('Error updating data:', error);
     }
   };
-
 
   return (
     <div className='max-w-screen-2xl container mx-auto md:px-20 px-4 mt-28 text-center'>
@@ -59,9 +58,8 @@ function RealUpdateForm() {
             />
           </label>
         </div>
-        
         <div className='mb-4'>
-            <label>
+          <label>
             Description:
             <input 
               type="text" 
@@ -107,4 +105,4 @@ function RealUpdateForm() {
   );
 }
 
-export default RealUpdateForm;
+export default FictionUpdateForm;

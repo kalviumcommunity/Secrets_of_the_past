@@ -42,16 +42,28 @@ router.put('/booksupdate/:id', async (req, res) => {
 });
 
 
+// router.get('/books/:id', async (req, res) => {
+//     try {
+//         const book = await BooksEntity.findById(req.params.id);
+//         if (!book) {
+//             return res.status(404).json({ error: 'Book not found' });
+//         }
+//         res.json(book);
+//     } catch (err) {
+//         console.error('Error fetching book by ID:', err);
+//         res.status(500).json({ error: 'Internal Server Error' });
+//     }
+// });
+
 router.get('/books/:id', async (req, res) => {
     try {
         const book = await BooksEntity.findById(req.params.id);
         if (!book) {
             return res.status(404).json({ error: 'Book not found' });
         }
-        res.json(book);
+        res.send(book);
     } catch (err) {
-        console.error('Error fetching book by ID:', err);
-        res.status(500).json({ error: 'Internal Server Error' });
+        next(err);
     }
 });
 
@@ -97,6 +109,18 @@ router.put('/fictionupdate/:id', async (req, res) => {
     } catch (err) {
         console.error('Error updating fiction:', err);
         res.status(500).json({ error: err.message || 'Internal Server Error' });
+    }
+});
+
+router.get('/fiction/:id', async (req, res) => {
+    try {
+        const fiction = await FictionEntity.findById(req.params.id);
+        if (!fiction) {
+            return res.status(404).json({ error: 'Fictional book not found' });
+        }
+        res.send(fiction);
+    } catch (err) {
+        next(err);
     }
 });
 
@@ -210,48 +234,6 @@ router.delete('/facts-delete/:id', async (req, res) => {
     }
 });
 
-// Add a comment
-// router.post('/speakup', async (req, res) => {
-//     try {
-//         if (!req.user) {
-//             return res.status(401).json({ error: 'Unauthorized: User not logged in' });
-//         }
-
-//         const { parentCommentId, message } = req.body;
-
-//         const newComment = await SpeakEntity.create({
-//             user: req.user._id, 
-//             parentComment: parentCommentId,
-//             message: message
-//         });
-        
-//         res.status(201).json(newComment);
-//     } catch (err) {
-//         console.error('Error adding comment:', err);
-//         res.status(500).json({ error: err.message || 'Internal Server Error' });
-//     }
-// });
-
-// Update and delete for '/speakup' endpoint
-// router.put('/speakupupdate/:id', async (req, res) => {
-//     try {
-//         const updatedComment = await SpeakEntity.findByIdAndUpdate(req.params.id, req.body, { new: true });
-//         res.json(updatedComment);
-//     } catch (err) {
-//         console.error('Error updating comment:', err);
-//         res.status(500).json({ error: err.message || 'Internal Server Error' });
-//     }
-// });
-
-// router.delete('/speakup-delete/:id', async (req, res) => {
-//     try {
-//         await SpeakEntity.findByIdAndDelete(req.params.id);
-//         res.json({ message: 'Comment deleted successfully' });
-//     } catch (err) {
-//         console.error('Error deleting comment:', err);
-//         res.status(500).json({ error: err.message || 'Internal Server Error' });
-//     }
-// });
 
 // User signup
 router.post('/signup', async (req, res) => {

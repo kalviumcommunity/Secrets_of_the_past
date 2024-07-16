@@ -1,11 +1,11 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom'; // Assuming you're using React Router
+import { useNavigate } from 'react-router-dom'; 
 
 function Real() {
   const [stories, setStories] = useState([]);
   const [updatingId, setUpdatingId] = useState(null);
-  const navigate = useNavigate(); // Assuming you're using React Router
+  const navigate = useNavigate(); 
 
   useEffect(() => {
     const fetchData = async () => {
@@ -25,8 +25,16 @@ function Real() {
     navigate(`/booksupdate/${id}`); 
   };
 
-  const handleDelete = (id) => {
-    
+  const handleDelete = async (id) => {
+    try{
+      await fetch(`https://secrets-of-the-past-2.onrender.com/books/${id}`,{
+        method: 'DELETE'
+      });
+      setStories(prevBooks => prevBooks.filter(books => books._id !== id));
+
+    }catch (error){
+      console.log('Error deleting the book', error);
+    }
   };
 
   if (updatingId) {

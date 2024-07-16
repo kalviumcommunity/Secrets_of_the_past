@@ -17,5 +17,5 @@ module.exports = {
   FictionEntity: require("./fictionSchema"),
   FactEntity: require("./factschema"),
   ImageEntity: require("./imageschema"),
-  // speakupEntity: require("./speakupSchema"),
+
 };
