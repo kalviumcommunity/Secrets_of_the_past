@@ -14,6 +14,7 @@ import ImageForm from './components/ImageForm';
 import FactsForm from './components/FactsForm';
 import ImageUpdateForm from './components/ImageUpdateForm';
 import RealUpdateForm from './components/RealUpdateForm';
+import FictionUpdateForm from './components/FictionUpdateForm';
 
 function App() {
   const [loggedIn, setLoggedIn] = useState(sessionStorage.getItem('login') === 'true');
@@ -45,6 +46,7 @@ function App() {
         <Route path="/add-facts" element={<FactsForm />} />
         <Route path="/update-image/:id" element={<ImageUpdateForm />} />
         <Route path="/booksupdate/:id" element={<RealUpdateForm />} />
+        <Route path="/fictionupdate/:id" element={<FictionUpdateForm/>} />
 
 
       </Routes>
