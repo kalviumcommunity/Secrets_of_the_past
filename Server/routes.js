@@ -41,6 +41,21 @@ router.put('/booksupdate/:id', async (req, res) => {
     }
 });
 
+
+router.get('/books/:id', async (req, res) => {
+    try {
+        const book = await BooksEntity.findById(req.params.id);
+        if (!book) {
+            return res.status(404).json({ error: 'Book not found' });
+        }
+        res.json(book);
+    } catch (err) {
+        console.error('Error fetching book by ID:', err);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+});
+
+
 router.delete('/books-delete/:id', async (req, res) => {
     try {
         await BooksEntity.findByIdAndDelete(req.params.id);
