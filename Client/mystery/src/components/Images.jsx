@@ -6,6 +6,7 @@ function Images() {
   const [error, setError] = useState(null);
   const [updatingId, setUpdatingId] = useState(null);
   const navigate = useNavigate();
+  const isLoggedIn = sessionStorage.getItem('login') === 'true';
 
   useEffect(() => {
     fetch('https://secrets-of-the-past-1.onrender.com/images')
@@ -23,6 +24,11 @@ function Images() {
   }, []);
 
   const handleDelete = async (id) => {
+    const confirmed = window.confirm("Are you sure you want to delete this image?");
+    if (!confirmed) {
+      return;
+    }
+
     try {
       await fetch(`https://secrets-of-the-past-1.onrender.com/delete-images/${id}`, {
         method: 'DELETE',
@@ -32,7 +38,6 @@ function Images() {
       console.error('Error deleting image:', error);
     }
   };
-  
 
   const handleUpdate = (id) => {
     setUpdatingId(id);
@@ -57,10 +62,12 @@ function Images() {
                   <h2 className='mt-3 text-xl'>{name}</h2>
                   <img src={image} alt={name} style={{ width: '600px', height: '500px' }} />
                   <p className='mt-1 text-white-600 pt-5 flex'>{description}</p>
-                  <div className="flex mt-3">
-                    <button className='imgupdate' onClick={() => handleUpdate(_id)}>Update</button>
-                    <button className='imgdel' onClick={() => handleDelete(_id)}>Delete</button>
-                  </div>
+                  {isLoggedIn && (
+                    <div className="flex mt-3">
+                      <button className='imgupdate' onClick={() => handleUpdate(_id)}>Update</button>
+                      <button className='imgdel' onClick={() => handleDelete(_id)}>Delete</button>
+                    </div>
+                  )}
                 </li>
               ))}
             </ul>
