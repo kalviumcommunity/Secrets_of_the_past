@@ -1,7 +1,5 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-// import login from "../../public/login.png";
-
 import axios from 'axios';
 
 const setCookie = (name, value, days) => {
@@ -15,7 +13,7 @@ const setCookie = (name, value, days) => {
 };
 
 function Login() {
-  const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loginError, setLoginError] = useState('');
 
@@ -23,18 +21,17 @@ function Login() {
     e.preventDefault();
 
     try {
-      const response = await axios.post('https://secrets-of-the-past-2.onrender.com/login', { username, password });
+      const response = await axios.post('https://secrets-of-the-past-2.onrender.com/login', { email, password });
 
       if (response.status === 200) {
         sessionStorage.setItem('login', true);
-        sessionStorage.setItem('username', username);
+        sessionStorage.setItem('email', email);
         window.location.href = '/';
       }
     } catch (error) {
       console.error('Error occurred while logging in:', error);
 
-      // Set a generic error message
-      setLoginError('Invalid username or password. Please try again.');
+      setLoginError('Invalid email or password. Please try again.');
     }
   };
 
@@ -55,18 +52,18 @@ function Login() {
   return (
     <div className="flex justify-center items-center h-screen">
       <div className="mr-8" style={{ maskImage: 'radial-gradient(circle at top left, transparent 20%, black 60%)', WebkitMaskImage: 'radial-gradient(circle at top left, transparent 20%, black 100%)' }}>
-        {/* <img src={login} className='w-59 h-59 pt-12 md:pl-8' alt="home-book" style={{ width: '100%' }} /> */}
       </div>
-      <div className="login-container w-full sm:w-2/3 md:w-1/2 lg:w-1/3 xl:w-1/4">
+      <div className="border border-rounded-white rounded w-full sm:w-2/3 md:w-1/2 lg:w-1/3 xl:w-1/4 py-12 px-12">
+
         <h2 className="text-center text-2xl font-bold mb-4">Login</h2>
         <form onSubmit={handleLogin}>
           <div className="mb-4">
-            <label htmlFor="username" className="block mb-1">Username:</label>
+            <label htmlFor="email" className="block mb-1">Email:</label>
             <input
-              type="text"
-              id="username"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
+              type="email"
+              id="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
               className="w-full px-3 py-2 border rounded"
               required
             />
@@ -84,8 +81,7 @@ function Login() {
           </div>
           {loginError && <p className="text-red-500">{loginError}</p>}
           <div className="flex justify-between">
-            <button type="submit" className="px-4 py-2 bg-blue-500 text-white rounded cursor-pointer">Login</button>
-            <button onClick={handleLogout} className="px-4 py-2 bg-red-500 text-white rounded cursor-pointer">Logout</button>
+            <button type="submit" className="w-full px-3 py-2 border rounded bg-blue-500 text-white cursor-pointer">Login</button>
           </div>
         </form>
         <p className="text-center mt-4"> Don't have an account? <Link to="/signup" className="text-blue-500">Sign Up</Link></p>

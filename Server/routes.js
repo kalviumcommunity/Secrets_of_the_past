@@ -41,20 +41,6 @@ router.put('/booksupdate/:id', async (req, res) => {
     }
 });
 
-
-// router.get('/books/:id', async (req, res) => {
-//     try {
-//         const book = await BooksEntity.findById(req.params.id);
-//         if (!book) {
-//             return res.status(404).json({ error: 'Book not found' });
-//         }
-//         res.json(book);
-//     } catch (err) {
-//         console.error('Error fetching book by ID:', err);
-//         res.status(500).json({ error: 'Internal Server Error' });
-//     }
-// });
-
 router.get('/books/:id', async (req, res) => {
     try {
         const book = await BooksEntity.findById(req.params.id);
@@ -234,13 +220,12 @@ router.delete('/facts-delete/:id', async (req, res) => {
     }
 });
 
-
 // User signup
 router.post('/signup', async (req, res) => {
     try {
-        const { username, password } = req.body;
+        const { email, password } = req.body;
         const newUser = await userInfo.create({
-            username: username,
+            email: email,
             password: password
         });
         res.status(201).json(newUser);
@@ -253,11 +238,11 @@ router.post('/signup', async (req, res) => {
 // User login
 router.post('/login', async (req, res) => {
     try {
-        const { username, password } = req.body;
-        const user = await userInfo.findOne({ username: username, password: password });
+        const { email, password } = req.body;
+        const user = await userInfo.findOne({ email: email, password: password });
 
         if (!user) {
-            return res.status(401).json({ error: 'Invalid username / password' });
+            return res.status(401).json({ error: 'Invalid email / password' });
         }
         res.status(200).json({ user });
     } catch (err) {

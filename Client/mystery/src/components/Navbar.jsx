@@ -30,14 +30,14 @@ function Navbar() {
     sessionStorage.removeItem('login');
     sessionStorage.removeItem('username');
     setIsLoggedIn(false);
-    window.location.href = '/login';
+    window.location.href = '/';
   };
 
   const navItems = (
     <>
-      <li>
+      {/* <li>
         <Link to="/">Home</Link>
-      </li>
+      </li> */}
       <li>
         <Link to="/real">Real</Link>
       </li>
