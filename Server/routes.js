@@ -21,7 +21,6 @@ router.get('/books', async (req, res) => {
 // Add a real book
 router.post('/add-real', async (req, res) => {
     try {
-        console.log("Received request body:", req.body); 
         const newRealBook = await BooksEntity.create(req.body);
         res.status(201).json(newRealBook);
     } catch (err) {
