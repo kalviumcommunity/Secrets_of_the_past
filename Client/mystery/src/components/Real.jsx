@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 function Real() {
   const [stories, setStories] = useState([]);
   const [updatingId, setUpdatingId] = useState(null);
+  const [searchQuery, setSearchQuery] = useState('');
   const navigate = useNavigate();
   const isLoggedIn = sessionStorage.getItem('login') === 'true';
 
@@ -40,6 +41,10 @@ function Real() {
     }
   };
 
+  const filteredStories = stories.filter(story =>
+    story.name.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+
   if (updatingId) {
     return null; 
   }
@@ -49,8 +54,17 @@ function Real() {
       <div className='mt-28 items-center justify-center text-center'>
         <h1 className='text-2xl md:text-4xl'>Would you like to read <span className='text-red-700'>Real Stories?</span></h1>
         <p className='mt-7 pb-7'>Here are a few real stories for you</p>
+        
+        <input
+          type="text"
+          placeholder="Search by name"
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
+          className="mb-4 p-2 border border-gray-300 rounded"
+        />
+
         <ul>
-          {stories.map((story) => (
+          {filteredStories.map((story) => (
             <li key={story._id} className="flex items-center pb-12">
               <img src={story.image} alt={story.name} style={{ width: '100px', height: '150px' }} />
               <div className="ml-4">
@@ -65,7 +79,7 @@ function Real() {
                 </div>
               )}
             </li>
-        ))}
+          ))}
         </ul>
       </div>
     </div>

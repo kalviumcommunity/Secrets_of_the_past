@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 function Fiction() {
   const [stories, setStories] = useState([]);
   const [error, setError] = useState(null);
+  const [searchQuery, setSearchQuery] = useState('');
   const navigate = useNavigate();
   const isLoggedIn = sessionStorage.getItem('login') === 'true';
 
@@ -43,6 +44,10 @@ function Fiction() {
     }
   };
 
+  const filteredStories = stories.filter(story =>
+    story.name.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+
   return (
     <div className='max-w-screen-2xl container mx-auto md:px-20 px-4'>
       <div className='mt-28 items-center justify-center text-center'>
@@ -52,9 +57,18 @@ function Fiction() {
         {error && <p className='text-red-500'>{error}</p>}
         {!error && (
           <>
-            <p className='mt-7 pb-7'>Here are a few fictional stories for you</p>
+            <div className='flex items-center justify-center mt-7 pb-7'>
+              <p className='mr-4'>Here are a few fictional stories for you</p>
+              <input
+                type="text"
+                placeholder="Search by name"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="p-2 border border-gray-300 rounded"
+              />
+            </div>
             <ul>
-              {stories.map((story) => (
+              {filteredStories.map((story) => (
                 <li key={story._id} className="flex items-center pb-12">
                   <img src={story.image} alt={story.name} style={{ width: '100px', height: '150px' }} />
                   <div className="ml-4">

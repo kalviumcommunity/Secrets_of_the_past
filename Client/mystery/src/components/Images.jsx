@@ -5,6 +5,7 @@ function Images() {
   const [images, setImages] = useState([]);
   const [error, setError] = useState(null);
   const [updatingId, setUpdatingId] = useState(null);
+  const [searchQuery, setSearchQuery] = useState('');
   const navigate = useNavigate();
   const isLoggedIn = sessionStorage.getItem('login') === 'true';
 
@@ -48,6 +49,11 @@ function Images() {
     return null; 
   }
 
+  const filteredImages = images.filter(({ name, description }) => 
+    name.toLowerCase().includes(searchQuery.toLowerCase()) || 
+    description.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+
   return (
     <div className='max-w-screen-2xl container mx-auto md:px-20 px-4'>
       <div className='mt-28 items-center justify-center text-center'>
@@ -55,9 +61,16 @@ function Images() {
         {error && <p className='text-red-500'>{error}</p>}
         {!error && (
           <>
+            <input
+              type="text"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              placeholder="Search images..."
+              className="mt-4 mb-8 p-2 border border-gray-300 rounded"
+            />
             <p className='mt-7 pb-7'>All the images below are not normal images; there is something mysterious about them. They may appear simple at first, but the descriptions will guide you to see how mysterious they are.</p>
             <ul className='grid grid-cols-1 md:grid-cols-1 gap-10'>
-              {images.map(({ _id, name, image, description }) => (
+              {filteredImages.map(({ _id, name, image, description }) => (
                 <li key={_id} className='flex flex-col items-center'>
                   <h2 className='mt-3 text-xl'>{name}</h2>
                   <img src={image} alt={name} style={{ width: '600px', height: '500px' }} />

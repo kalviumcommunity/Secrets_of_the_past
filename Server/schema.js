@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const FactEntity = require("./factschema");
+const ShareEntity = require("./shareschema");
 const ImageEntity = require("./imageschema");
 
 const EntitySchema = new mongoose.Schema({
@@ -16,6 +17,7 @@ module.exports = {
   BooksEntity: Entity,
   FictionEntity: require("./fictionSchema"),
   FactEntity: require("./factschema"),
+  ShareEntity: require("./shareschema"),
   ImageEntity: require("./imageschema"),
 
 };
