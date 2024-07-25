@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const cors = require('cors'); 
-const { BooksEntity, FictionEntity, FactEntity, ImageEntity, SpeakEntity } = require('./schema');
+const { BooksEntity, FictionEntity, FactEntity, ImageEntity, ShareEntity } = require('./schema');
 const userInfo = require('./userschema');
 
 router.use(express.json());
@@ -21,6 +21,7 @@ router.get('/books', async (req, res) => {
 // Add a real book
 router.post('/add-real', async (req, res) => {
     try {
+        console.log("Received request body:", req.body); 
         const newRealBook = await BooksEntity.create(req.body);
         res.status(201).json(newRealBook);
     } catch (err) {
@@ -118,6 +119,66 @@ router.delete('/fiction-delete/:id', async (req, res) => {
         res.status(500).json({ error: err.message || 'Internal Server Error' });
     }
 });
+
+
+// GET all experiences
+router.get('/share', async (req, res) => {
+    try {
+        const ShareExperience = await ShareEntity.find().maxTimeMS(20000).exec();
+        res.json(ShareExperience);
+    } catch (err) {
+        console.error('Error in GET share experience request:', err);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+});
+
+// Add a experience
+router.post('/add-share', async (req, res) => {
+    try {
+        console.log("Received request body:", req.body); 
+        const newShareExperience = await ShareEntity.create(req.body);
+        res.status(201).json(newShareExperience);
+    } catch (err) {
+        console.error('Error adding experience:', err);
+        res.status(500).json({ error: err.message || 'Internal Server Error' });
+    }
+});
+
+// Update and delete for '/experience' endpoint
+router.put('/shareupdate/:id', async (req, res) => {
+    try {
+        const updatedShare = await ShareEntity.findByIdAndUpdate(req.params.id, req.body, { new: true });
+        res.json(updatedShare);
+    } catch (err) {
+        console.error('Error updating share:', err);
+        res.status(500).json({ error: err.message || 'Internal Server Error' });
+    }
+});
+
+router.get('/share/:id', async (req, res) => {
+    try {
+        const share = await ShareEntity.findById(req.params.id);
+        if (!share) {
+            return res.status(404).json({ error: 'Experience not found' });
+        }
+        res.send(share);
+    } catch (err) {
+        next(err);
+    }
+});
+
+router.delete('/share-delete/:id', async (req, res) => {
+    try {
+        await ShareEntity.findByIdAndDelete(req.params.id);
+        res.json({ message: 'Experience deleted successfully' });
+    } catch (err) {
+        console.error('Error deleting experience:', err);
+        res.status(500).json({ error: err.message || 'Internal Server Error' });
+    }
+});
+
+
+
 
 // GET all images
 router.get('/images', async (req, res) => {

@@ -1,0 +1,18 @@
+meta {
+  name: add-share
+  type: http
+  seq: 21
+}
+
+post {
+  url: http://localhost:3000/add-share
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "title": "1st exp",
+    "info": "read fact1 this is to add multiple facts for fact 1 too see if it works proplerly, responsively idf the data is lengthy and how it appears in multiple lines. , so this is again a dummy data"
+  }
+}
