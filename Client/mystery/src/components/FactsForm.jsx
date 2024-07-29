@@ -47,22 +47,19 @@ function FactsForm() {
     <button
       type="submit"
       onClick={handleSubmit}
-      className="bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 focus:outline-none focus:bg-blue-600 transition duration-300 w-full"
+      className="bg-red-900 text-white py-2 px-4 rounded-md hover:bg-red-600 focus:outline-none focus:bg-blue-600 transition duration-300 w-full"
     >
       Submit
     </button>
   );
 
   return (
-    
     <div className='fictional-form-container flex justify-center items-center h-full mt-20'>
-      
-
-      <div className="w-full max-w-sm p-4 bg-white rounded-md shadow-md">
-        <h1 className="text-lg font-bold mb-4">Add Facts</h1>
+      <div className="w-full max-w-sm p-4 bg-black rounded-md shadow-md">
+        <h1 className="text-lg font-bold text-white mb-4">Add Facts</h1>
         <form onSubmit={handleSubmit}>
-          <input type="text" name="title" placeholder="Title" value={formData.title} onChange={handleChange} className="border border-gray-300 px-3 py-2 rounded-md mb-2 block w-full" />
-          <textarea name="info" placeholder="Info" rows="3" value={formData.info} onChange={handleChange} className="border border-gray-300 px-3 py-2 rounded-md mb-2 block w-full"></textarea>
+          <input type="text" name="title" placeholder="Title" value={formData.title} onChange={handleChange} className="border border-gray-300 bg-black text-white px-3 py-2 rounded-md mb-2 block w-full" />
+          <textarea name="info" placeholder="Info" rows="3" value={formData.info} onChange={handleChange} className="border border-gray-300 bg-black text-white px-3 py-2 rounded-md mb-2 block w-full"></textarea>
           <SubmitButton />
         </form>
       </div>

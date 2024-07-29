@@ -1,69 +1,44 @@
-import React from 'react'
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
-import Slider from "react-slick";
-import list from "../../public/List.json"
-import Cards from "./Cards"
+import React from 'react';
+import { useNavigate } from 'react-router-dom';
+import list from "../../public/List.json";
+import Cards from "./Cards";
 
 function Books() {
-  const filterData=list.filter((data)=>data.category === "Read");
-  console.log(filterData)
-  var settings = {
-    dots: true,
-    infinite: false,
-    speed: 500,
-    slidesToShow: 4,
-    slidesToScroll: 4,
-    initialSlide: 0,
-    responsive: [
-      {
-        breakpoint: 1024,
-        settings: {
-          slidesToShow: 3,
-          slidesToScroll: 3,
-          infinite: true,
-          dots: true
-        }
-      },
-      {
-        breakpoint: 600,
-        settings: {
-          slidesToShow: 2,
-          slidesToScroll: 2,
-          initialSlide: 2
-        }
-      },
-      {
-        breakpoint: 480,
-        settings: {
-          slidesToShow: 1,
-          slidesToScroll: 1
-        }
-      }
-    ]
+  const navigate = useNavigate();
+
+  const filterData = list.filter((data) => data.category === "Read");
+
+  const handleCardClick = (title) => {
+    if (title === "Truth") {
+      navigate('/real');
+    }
+   else if (title === "Fiction") {
+    navigate('/fiction');
+  }else if (title === "Facts") {
+    navigate('/facts');
+  }else if (title === "Pics") {
+    navigate('/images');
+  }
+  
   };
+  
+
   return (
-   <>
-   <div className='max-w-screen-2xl container mx-auto md:px-20 px-4 py-5'>
-    <div>
-    <h1 className='font-semibold text-xl pb-2 '>You might like</h1>
-    <p>Lorem ipsum dolor sit amet consectetur adipisicing somet. </p>
-    
-   </div>
-   <div>
-   <div className="slider-container">
-      <Slider {...settings}>
-        {filterData.map((item)=>(
-          <Cards item={item} key={item.id}/>
-
-        ))}
-      </Slider>
-    </div>
-    </div>
-    </div>
-   </>
-
-  )
+    <>
+      <div className='max-w-screen-2xl container mx-auto md:px-20 px-4 py-5'>
+        <div>
+          <h1 className='font-semibold text-xl pb-2'>You might like</h1>
+        </div>
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+          {filterData.map((item) => (
+            <div key={item.id} onClick={() => handleCardClick(item.title)}>
+              <Cards item={item} />
+            </div>
+          ))}
+        </div>
+      </div>
+    </>
+  );
 }
 
-export default Books
+export default Books;

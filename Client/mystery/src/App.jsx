@@ -4,7 +4,7 @@ import Home from './components/Home';
 import Incidents from './components/Incidents';
 import Fictional from './components/Fictional';
 import More from './components/More';
-import Images from './components/Images';
+import Images from './components/Image';
 import Login from './components/Login';
 import Signup from './components/Signup';
 import Navbar from './components/Navbar';
@@ -15,7 +15,6 @@ import FactsForm from './components/FactsForm';
 import ImageUpdateForm from './components/ImageUpdateForm';
 import RealUpdateForm from './components/RealUpdateForm';
 import FictionUpdateForm from './components/FictionUpdateForm';
-import ReadInfo from './components/ReadInfo';
 import Share from './components/Share';
 
 function App() {
@@ -48,9 +47,10 @@ function App() {
         <Route path="/add-facts" element={<FactsForm />} />
         <Route path="/update-image/:id" element={<ImageUpdateForm />} />
         <Route path="/booksupdate/:id" element={<RealUpdateForm />} />
-        <Route path="/fictionupdate/:id" element={<FictionUpdateForm />} />
-        <Route path="/read-info/:id" element={<ReadInfo />} />
-        <Route path="/share" element={<Share />} />
+        <Route path="/fictionupdate/:id" element={<FictionUpdateForm/>} />
+        <Route path="/share" element={<Share/>} />
+
+
       </Routes>
     </>
   );
