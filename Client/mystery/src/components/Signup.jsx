@@ -35,10 +35,10 @@ function Signup() {
     }
 
     return (
-        <div className="flex justify-center items-center h-screen">
-
-            <div className="max-w-md p-8 mr-10 form-container">
-                <h2 className="text-center mb-4">Sign Up</h2>
+        <div className="flex justify-center items-center h-screen bg-black">
+            <div className="w-full max-w-md p-8 bg-black text-white rounded-lg shadow-md border-4 border-white"> 
+                <h2 className="text-center text-2xl mb-4 font-bold text-red-700">Sign Up</h2> 
+                <p className='pl-8 pb-4'>Sign up to unlock few more features</p>
                 <form onSubmit={handleSubmit}>
                     <div className="mb-4">
                         <label htmlFor="email" className="block mb-1 font-bold">Email:</label>
@@ -48,33 +48,29 @@ function Signup() {
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
                             required
-                            className="w-full px-3 py-2 border rounded"
+                            placeholder='Please Enter your Email'
+                            className="w-full px-3 py-2 border border-gray-600 rounded bg-gray-900 text-white focus:outline-none focus:border-blue-500"
                         />
                     </div>
-
                     <div className="mb-4">
                         <label htmlFor="password" className="block mb-1 font-bold">Password:</label>
-                        <input
+                        <input 
                             type="password"
                             id="password"
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
                             required
-                            className="w-full px-3 py-2 border rounded"
+                            placeholder='Set your own password'
+                            className="w-full px-3 py-2 border border-gray-600 rounded bg-gray-900 text-white focus:outline-none focus:border-blue-500"
                         />
                     </div>
                     {signupError && <p className="text-red-500 mb-2">{signupError}</p>}
-                    <button type="submit" className="w-full px-3 py-2 border rounded bg-blue-500 text-white cursor-pointer">SignUp</button>
-
+                    <button type="submit" className="w-full px-3 py-2 mt-3 rounded bg-blue-500 hover:bg-blue-700 text-white font-bold cursor-pointer">Sign Up</button>
                 </form>
-                
-                <p className="text-center mt-4">Already have an account? <Link to="/login" className="text-blue-500">Login</Link></p>
-                
+                <p className="text-center mt-4">Already have an account? <Link to="/login" className="text-blue-500 hover:underline">Login</Link></p>
             </div>
-            
         </div>
     );
 }
 
 export default Signup;
-

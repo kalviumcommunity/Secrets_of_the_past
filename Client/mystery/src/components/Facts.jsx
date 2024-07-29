@@ -30,38 +30,33 @@ function Facts() {
   };
 
   return (
-    <div className="max-w-screen-2xl container mx-auto md:px-20 px-4">
-      <div className="mt-28 items-center justify-center text-center relative">
-        <h1 className="text-2xl md:text-4xl">
-          Let's read some <span className="text-red-700">Facts</span>
+    <div className="max-w-screen-lg mx-auto p-4 md:p-8 bg-black text-white">
+      <div className="text-center mt-16">
+        <h1 className="text-3xl md:text-5xl font-bold mb-6">
+          Let's read some <span className="text-red-600">Facts</span>
         </h1>
-        {error && <p className="text-red-500">{error}</p>}
+        {error && <p className="text-red-600 text-lg">{error}</p>}
         {loading ? (
-          <p>Loading...</p>
+          <p className="text-gray-400 text-lg">Loading...</p>
         ) : (
           !error && (
             <>
-              <p className="mt-7 pb-7">
-                Know the facts also you can write about it or add more{" "}
+              <p className="text-gray-300 text-lg mb-8">
+                Know the facts, you can also write about them or add more.
               </p>
-              <ul>
+              <ul className="space-y-4">
                 {facts.map((fact, index) => (
-                  <li key={index} className="relative mb-6">
+                  <li key={index} className="bg-gray-800 shadow-md rounded-lg overflow-hidden">
                     <button
-                      className="bg-gray-300 hover:bg-black-500 text-gray-800 font-bold md:pl-4 pr-4 py-2 rounded focus:outline-none focus:shadow-outline color-white"
+                      className="w-full text-left p-4 bg-gray-700 hover:bg-gray-600 text-white font-semibold focus:outline-none"
                       onClick={() => handleTitleClick(index)}
-                      style={{
-                        width: "100%",
-                        maxWidth: "400px",
-                        height: "auto"
-                      }}
                     >
                       {fact.title}
                     </button>
 
                     {selectedFact === index && (
-                      <div className="fact-info bg-black text-white p-2 rounded-md cursor-default pt-7">
-                        <p>{fact.info}</p>
+                      <div className="p-4 bg-gray-900">
+                        <p className="text-white">{fact.info}</p> {/* Changed to white */}
                       </div>
                     )}
                   </li>

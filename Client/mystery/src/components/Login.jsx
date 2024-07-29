@@ -30,7 +30,6 @@ function Login() {
       }
     } catch (error) {
       console.error('Error occurred while logging in:', error);
-
       setLoginError('Invalid email or password. Please try again.');
     }
   };
@@ -50,41 +49,39 @@ function Login() {
   };
 
   return (
-    <div className="flex justify-center items-center h-screen">
-      <div className="mr-8" style={{ maskImage: 'radial-gradient(circle at top left, transparent 20%, black 60%)', WebkitMaskImage: 'radial-gradient(circle at top left, transparent 20%, black 100%)' }}>
-      </div>
-      <div className="border border-rounded-white rounded w-full sm:w-2/3 md:w-1/2 lg:w-1/3 xl:w-1/4 py-12 px-12">
-
-        <h2 className="text-center text-2xl font-bold mb-4">Login</h2>
+    <div className="flex justify-center items-center h-screen bg-black">
+      <div className="w-full max-w-md p-8 bg-black text-white rounded-lg shadow-md border-4 border-white">
+        <h2 className="text-center text-2xl mb-4 font-bold text-red-700">Login</h2>
+        <p className='pl-8 pb-4'>One more step to unlock all features</p>
         <form onSubmit={handleLogin}>
           <div className="mb-4">
-            <label htmlFor="email" className="block mb-1">Email:</label>
+            <label htmlFor="email" className="block mb-1 font-bold">Email:</label>
             <input
               type="email"
               id="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="w-full px-3 py-2 border rounded"
               required
+              placeholder='Please Enter your Email'
+              className="w-full px-3 py-2 border border-gray-600 rounded bg-gray-900 text-white focus:outline-none focus:border-blue-500"
             />
           </div>
           <div className="mb-4">
-            <label htmlFor="password" className="block mb-1">Password:</label>
+            <label htmlFor="password" className="block mb-1 font-bold">Password:</label>
             <input
               type="password"
               id="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="w-full px-3 py-2 border rounded"
               required
+              placeholder='Enter your password'
+              className="w-full px-3 py-2 border border-gray-600 rounded bg-gray-900 text-white focus:outline-none focus:border-blue-500"
             />
           </div>
-          {loginError && <p className="text-red-500">{loginError}</p>}
-          <div className="flex justify-between">
-            <button type="submit" className="w-full px-3 py-2 border rounded bg-blue-500 text-white cursor-pointer">Login</button>
-          </div>
+          {loginError && <p className="text-red-500 mb-2">{loginError}</p>}
+          <button type="submit" className="w-full px-3 py-2 mt-3 rounded bg-blue-500 hover:bg-blue-700 text-white font-bold cursor-pointer">Login</button>
         </form>
-        <p className="text-center mt-4"> Don't have an account? <Link to="/signup" className="text-blue-500">Sign Up</Link></p>
+        <p className="text-center mt-4">Don't have an account? <Link to="/signup" className="text-blue-500 hover:underline">Sign Up</Link></p>
       </div>
     </div>
   );
